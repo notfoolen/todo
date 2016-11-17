@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="icon" type="image/png" href="/static/favicon.ico" />
-  <link type="text/css" rel="stylesheet" href="/static/css/app.min.css" />
 
   <base href="/">
 </head>
@@ -15,22 +14,8 @@
 <body>
   [[template "layout/header.html" .]]
   [[.LayoutContent]]
-  <app>Загрузка...</app>
+  <my-app>Загрузка...</my-app>
   [[template "layout/footer.html" .]]
 </body>
-
-<script src="/static/libs/core-js/client/shim.min.js"></script>
-<script src="/static/libs/zone.js/dist/zone.js"></script>
-<script src="/static/libs/reflect-metadata/Reflect.js"></script>
-<script src="/static/libs/systemjs/dist/system.src.js"></script>
-<script src="/static/systemjs.config.js"></script>
-
-<script>
-  System.import('app').catch(function(err){ console.error(err); });
-  APP = {
-    xsrf: null
-  };
-  APP.xsrf = [[.xsrf]];
-</script>
 
 </html>

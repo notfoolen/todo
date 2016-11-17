@@ -1,12 +1,12 @@
-import { Component, ViewEncapsulation, ViewContainerRef } from "@angular/core";
+﻿import { Component } from '@angular/core';
+
+// AoT compilation doesn't support 'require'.
+import './app.component.scss';
+import '../style/app.scss';
+
 @Component({
-  selector: "app",
-  encapsulation: ViewEncapsulation.None,
-  template: `
-    <main>
-      <div class="additional-bg"></div>
-      <router-outlet></router-outlet>
-    </main>
-    `
+    selector: 'my-app',
+    templateUrl: 'app.component.html'
 })
+
 export class AppComponent { }
