@@ -7,5 +7,5 @@ type IndexController struct {
 // Index main page
 func (c *IndexController) Index() {
 	c.Data["menu"] = "main"
-	c.TplName = "index/index.html"
+	c.TplName = "index.html"
 }

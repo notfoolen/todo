@@ -6,18 +6,24 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-console.log("@@@@@@@@@ USING PRODUCTION @@@@@@@@@@@@@@@");
+console.log("@@@@@@@@@ USING DEVELOPMENT @@@@@@@@@@@@@@@");
 
 module.exports = {
 
+    devtool: 'source-map',
+
     entry: {
-        'app': './src/main-aot.ts' // AoT compilation
+        'polyfills': './src/polyfills.ts',
+        'vendor': './src/vendor.ts',
+        'app': './src/main.ts',
     },
 
     output: {
-        path: "./static/",
-        filename: 'dist/[name].[hash].bundle.js',
-        publicPath: "/"
+        /* filename: 'dist/[name].bundle.js', */
+        path: "./static",
+        filename: '[name].js',
+        chunkFilename: '[id].chunk.js',
+        publicPath: '/',
     },
 
     resolve: {
@@ -35,11 +41,13 @@ module.exports = {
             {
                 test: /\.ts$/,
                 loaders: [
-                    'awesome-typescript-loader'
+                    'awesome-typescript-loader',
+                    'angular2-template-loader',
+                    'source-map-loader'
                 ]
             },
             {
-                test: /\.(png|jpg|gif|ico|woff|woff2|ttf|svg|eot)$/,
+                test: /\.(png|jpg|gif|ico)$/,
                 exclude: /node_modules/,
                 loader: "file-loader?name=assets/[name]-[hash:6].[ext]",
             },
@@ -50,35 +58,32 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
                 loaders: ["style-loader", "css-loader", "sass-loader"]
             },
             {
                 test: /\.html$/,
                 loader: 'raw-loader'
-            }
+            },
+            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=image/svg+xml'},
+            {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff"},
+            {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff"},
+            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/octet-stream"},
+            {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
         ],
         exprContextCritical: false
     },
 
+/*
     plugins: [
         new CleanWebpackPlugin(
             [
                 './static/dist',
                 './static/fonts',
-                './static/assets'
+                './static/assets',
+                './static/img'
             ]
         ),
-        new webpack.NoErrorsPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            output: {
-                comments: false
-            },
-            sourceMap: false
-        }),
 
         new HtmlWebpackPlugin({
             filename: 'index.html',
@@ -87,8 +92,10 @@ module.exports = {
         }),
 
         new CopyWebpackPlugin([
-            { from: './src/img/*.*', to: "img/", flatten: true }
+            { from: './src/img/*.*', to: "img/", flatten: true },
+            // { from: './node_modules/font-awesome-scss/fonts/*.*', to: "fonts/", flatten: true }
         ])
     ]
+*/
 };
 

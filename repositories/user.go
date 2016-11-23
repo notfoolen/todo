@@ -63,7 +63,7 @@ func UserSignIn(login, password string) (*domains.User, error) {
 }
 
 // UserSignUp registration
-func UserSignUp(login, password string) (*domains.User, error) {
+func UserSignUp(login, email, password string) (*domains.User, error) {
 	if login == "" || password == "" {
 		return nil, errors.New("Login and password is too short")
 	}
@@ -76,6 +76,7 @@ func UserSignUp(login, password string) (*domains.User, error) {
 
 	item := &domains.User{
 		Login: login,
+		Email: email,
 		Pwd:   pwd,
 		Salt:  salt,
 	}

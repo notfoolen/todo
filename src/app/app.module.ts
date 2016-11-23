@@ -8,10 +8,10 @@ import { Configuration } from './app.constants';
 import { routing } from './app.routes';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { BoardListComponent, BoardComponent, HomeComponent, SigninComponent, SignupComponent, PageNotFoundComponent } from './pages';
+// import { BoardComponent } from './board/board.component';
 
-import { TestDataService } from './services/testDataService';
+import { AccountService, BoardService } from './services';
 
 @NgModule({
     imports: [
@@ -23,11 +23,16 @@ import { TestDataService } from './services/testDataService';
     ],
     declarations: [
         AppComponent,
-        AboutComponent,
-        HomeComponent
+        BoardListComponent,
+        BoardComponent,
+        HomeComponent,
+        SigninComponent,
+        SignupComponent,
+        PageNotFoundComponent
     ],
     providers: [
-        TestDataService,
+        AccountService,
+        BoardService,
         Configuration
     ],
     bootstrap: [AppComponent],

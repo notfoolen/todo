@@ -1,5 +1,5 @@
 ﻿// Entry point for AoT compilation.
-export * from './polyfills';
+// export * from './polyfills';
 // export * from './vendor';
 
 import { platformBrowser } from '@angular/platform-browser';

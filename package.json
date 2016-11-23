@@ -1,37 +1,40 @@
 {
+  "name": "ttt",
   "version": "1.0.0",
   "description": "",
-  "main": "wwwroot/index.html",
+  "main": "index.html",
   "author": "",
   "license": "ISC",
   "scripts": {
     "ngc": "ngc -p ./tsconfig-aot.json",
-    "start": "concurrently \"webpack-dev-server --inline --progress --port 9090\" \"bee run\" ",
+    "start": "concurrently \"webpack-dev-server\" \"bee run\" ",
     "webpack-dev": "set NODE_ENV=development&& webpack",
     "webpack-prod": "set NODE_ENV=production&& webpack",
     "build": "npm run webpack-dev",
     "buildProduction": "npm run ngc && npm run webpack-prod"
   },
   "dependencies": {
-  "@angular/common": "~2.2.0",
+    "@angular/common": "~2.2.0",
     "@angular/compiler": "~2.2.0",
+    "@angular/compiler-cli": "2.2.0",
     "@angular/core": "~2.2.0",
     "@angular/forms": "~2.2.0",
     "@angular/http": "~2.2.0",
     "@angular/platform-browser": "~2.2.0",
     "@angular/platform-browser-dynamic": "~2.2.0",
+    "@angular/platform-server": "~2.1.0",
     "@angular/router": "~3.2.0",
     "@angular/upgrade": "~2.2.0",
     "angular-in-memory-web-api": "~0.1.15",
+    "bootstrap": "^4.0.0-alpha.5",
     "core-js": "^2.4.1",
+    "ie-shim": "^0.1.0",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
     "zone.js": "^0.6.25",
-
-    "@angular/compiler-cli": "2.2.0",
-    "@angular/platform-server": "~2.1.0",
-    "bootstrap": "^3.3.7",
-    "ie-shim": "^0.1.0"
+    "font-awesome": "*",
+    "angular2-jwt": "0.1.23",
+    "jwt-decode": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "^6.0.45",
@@ -55,6 +58,7 @@
     "typescript": "2.0.3",
     "url-loader": "^0.5.6",
     "webpack": "2.1.0-beta.27",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^0.17.0"
   }
 }

@@ -88,3 +88,8 @@ func (c *BaseController) getUploadDir() (string, error) {
 	}
 	return uploadDir, err
 }
+
+// SetProfile Устанавливает сессию пользователя
+func (c *BaseController) SetProfile(profile *domains.User) {
+	c.SetSession("user_profile", profile)
+}

@@ -1,11 +1,8 @@
 //noinspection CssUnknownTarget
 @import "variables";
-// @import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap";
 // @import "node_modules/font-awesome-scss/scss/font-awesome";
 
 @import "components/header";
 @import "components/footer";
-
-.container {
-  max-width: 60rem;
-}
+@import "components/login";

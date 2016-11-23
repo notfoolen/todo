@@ -45,8 +45,8 @@ func (c *BaseController) Init(ctx *context.Context, controllerName, actionName s
 	c.Data["xsrf"] = c.XSRFToken()
 	c.Data["xsrfdata"] = template.HTML(c.XSRFFormHTML())
 
-	c.Layout = "layout/index.html"
-	c.disableLayout = false
+	// c.Layout = "layout/index.html"
+	c.disableLayout = true
 }
 
 // postInit call after init
@@ -56,11 +56,13 @@ func (c *BaseController) postInit() {
 
 // Render sends the response with rendered template bytes as text/html type.
 func (c *BaseController) Render() error {
-	controllerName, _ := c.GetControllerAndAction()
+	// controllerName, _ := c.GetControllerAndAction()
 
-	if !c.disableLayout && controllerName != "AccountController" && controllerName != "WelcomeController" {
-		c.TplName = "misc/empty.html"
-	}
+	/*
+		if !c.disableLayout && controllerName != "AccountController" && controllerName != "WelcomeController" {
+			c.TplName = "misc/empty.html"
+		}
+	*/
 
 	return c.Controller.Render()
 }
