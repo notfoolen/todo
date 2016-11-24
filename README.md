@@ -12,7 +12,7 @@ Open-source trello-like kanban board application.
 
 ## Motivation
 
-I want a good job ^^. Seriously!
+I need a good job ^^. Seriously!
 
 Just demonstrate skills, learn new frameworks, release awesome tools! :)  
 
