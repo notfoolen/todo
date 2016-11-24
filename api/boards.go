@@ -36,7 +36,7 @@ func (c *BoardsController) GetByID() {
 	c.Ok(item)
 }
 
-// Get список новостей
+// Get list user's boards
 func (c *BoardsController) Get() {
 	filter := &filters.BoardFilter{
 		UserID: c.User.ID,
@@ -62,4 +62,31 @@ func (c *BoardsController) Post() {
 		return
 	}
 	c.ErrorMessage(400, err.Error())
+}
+
+// Put update board info
+func (c *BoardsController) Put() {
+	var boardNew board.New
+	c.GetPost(&boardNew)
+
+	item, err := repositories.BoardUpdate(boardNew, c.User.ID)
+	if err == nil { // success
+		c.Ok(item)
+		return
+	}
+	c.ErrorMessage(400, err.Error())
+}
+
+// Delete user board
+func (c *BoardsController) Delete() {
+	id, err := c.GetInt("id")
+	if err != nil {
+		c.ErrorArgument("id")
+	}
+	ok, err := repositories.BoardDelete(id, c.User.Id)
+	if err != nil {
+		c.Error(err)
+	} else {
+		c.Ok(ok)
+	}
 }

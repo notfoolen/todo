@@ -10,4 +10,8 @@ type CardList struct {
 	Description string    `json:"description"`
 	User        *User     `orm:"rel(fk);on_delete(do_nothing)"json:"user"`
 	Board       *Board    `orm:"rel(fk);on_delete(do_nothing)"json:"board"`
+
+	Deleted     bool      `json:"-"`
+	DeletedDt   time.Time `orm:"null;type(datetime)"json:"-"`
+	DeletedUser *User     `orm:"null;rel(fk);on_delete(set_null)"json:"-"`
 }

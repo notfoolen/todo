@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"errors"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 	"github.com/notfoolen/todo/library"
@@ -49,7 +50,7 @@ func boardGet(o orm.Ormer, id int) (*domains.Board, error) {
 
 	if err != nil {
 		if err == orm.ErrNoRows {
-			return nil, errors.New("No board found")
+			return nil, errors.New("board_not_found")
 		}
 		return nil, err
 	}
@@ -76,7 +77,7 @@ func boardAdd(o orm.Ormer, boardNew board.New, userID int) (*domains.Board, erro
 	id, err := o.Insert(item)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.New("create_board_error")
 	}
 
 	return boardGet(o, int(id))
@@ -85,4 +86,54 @@ func boardAdd(o orm.Ormer, boardNew board.New, userID int) (*domains.Board, erro
 // BoardAdd insert Board list
 func BoardAdd(boardNew board.New, userID int) (*domains.Board, error) {
 	return boardAdd(nil, boardNew, userID)
+}
+
+// BoardUpdate update own existing board
+func BoardUpdate(boardUpdate board.New, userID int) (*domains.Board, error) {
+	item, err := BoardGet(boardUpdate.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	if item.User.ID != userID {
+		return nil, errors.New("access_denied")
+	}
+
+	item.Title = boardUpdate.Title
+	item.Description = boardUpdate.Description
+
+	o := orm.NewOrm()
+	if num, err := o.Update(item); num != 1 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		return nil, errors.New("update_board_error")
+	}
+
+	return nil, nil
+}
+
+// BoardDelete delete own existing board
+func BoardDelete(id, userID int) (bool, error) {
+	item, err := BoardGet(id)
+	if err != nil {
+		return false, err
+	}
+
+	if item.User.ID != userID {
+		return false, errors.New("access_denied")
+	}
+
+	o := orm.NewOrm()
+	num, err := o.QueryTable("board").Filter("id", item.ID).Update(orm.Params{
+		"deleted":      true,
+		"deleted_dt":   time.Now(),
+		"deleted_user": &domains.User{ID: userID},
+	})
+
+	if err != nil || num != 1 {
+		return false, errors.New("delete_board_error")
+	}
+
+	return true, nil
 }

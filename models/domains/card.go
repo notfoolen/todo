@@ -11,4 +11,8 @@ type Card struct {
 	User        *User     `orm:"rel(fk);on_delete(do_nothing)"json:"user"`
 	Board       *Board    `orm:"rel(fk);on_delete(do_nothing)"json:"board"`
 	List        *CardList `orm:"rel(fk);on_delete(do_nothing)"json:"list"`
+
+	Deleted     bool      `json:"-"`
+	DeletedDt   time.Time `orm:"null;type(datetime)"json:"-"`
+	DeletedUser *User     `orm:"null;rel(fk);on_delete(set_null)"json:"-"`
 }
