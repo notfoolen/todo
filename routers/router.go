@@ -8,20 +8,23 @@ import (
 
 func init() {
 	beego.Router("/", &controllers.IndexController{}, "get:Index")
+	beego.Router("/signin", &controllers.IndexController{}, "get:Index")
+	beego.Router("/signup", &controllers.IndexController{}, "get:Index")
+	beego.Router("/boards", &controllers.IndexController{}, "get:Index")
 
-	/*
-		beego.Router("/signin", &controllers.AccountController{}, "get,post:SignIn")
-		beego.Router("/signup", &controllers.AccountController{}, "get,post:SignUp")
-		beego.Router("/signout", &controllers.AccountController{}, "get:SignOut")
-	*/
 	// api
 	apiNs :=
 		beego.NewNamespace("/api",
-			// upload
-			// beego.NSRouter("/upload", &api.UploadController{}, "post:Post"),
-			// account
+			// registration, login
 			beego.NSRouter("/signup", &api.AccountController{}, "post:SignUp"),
 			beego.NSRouter("/signin", &api.AccountController{}, "post:SignIn"),
+
+			// account
+			beego.NSRouter("/account", &api.AccountController{}, "get:Get"),
+
+			// boards
+			beego.NSRouter("/boards/:id([0-9]+)", &api.BoardsController{}, "get:GetByID"),
+			beego.NSRouter("/boards", &api.BoardsController{}),
 		)
 	beego.AddNamespace(apiNs)
 }

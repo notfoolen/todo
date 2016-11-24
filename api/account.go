@@ -1,6 +1,10 @@
 package api
 
-import "github.com/notfoolen/todo/repositories"
+import (
+	"github.com/notfoolen/todo/models/views/user"
+
+	"github.com/notfoolen/todo/repositories"
+)
 
 // AccountController account management
 type AccountController struct {
@@ -8,11 +12,18 @@ type AccountController struct {
 }
 
 // SignIn auth
-func (c *BaseController) SignIn() {
-	login := c.GetString("username")
-	password := c.GetString("password")
+func (c *AccountController) SignIn() {
+	var userLogin user.Login
+	c.GetPost(&userLogin)
 
-	profile, err := repositories.UserSignIn(login, password)
+	err := userLogin.Check()
+
+	if err != nil {
+		c.ErrorMessage(400, err.Error())
+		return
+	}
+
+	profile, err := repositories.UserSignIn(userLogin)
 	if err == nil { // success
 		c.SetProfile(profile)
 
@@ -23,18 +34,18 @@ func (c *BaseController) SignIn() {
 }
 
 // SignUp registration
-func (c *BaseController) SignUp() {
-	login := c.GetString("username")
-	email := c.GetString("email")
-	password := c.GetString("password")
-	repassword := c.GetString("repassword")
+func (c *AccountController) SignUp() {
+	var userReg user.Registration
+	c.GetPost(&userReg)
 
-	if password != repassword {
-		c.ErrorMessage(400, "passwords are not equals")
+	err := userReg.Check()
+
+	if err != nil {
+		c.ErrorMessage(400, err.Error())
 		return
 	}
 
-	profile, err := repositories.UserSignUp(login, email, password)
+	profile, err := repositories.UserSignUp(userReg)
 	if err != nil { // error
 		c.Error(err)
 		return
@@ -42,4 +53,9 @@ func (c *BaseController) SignUp() {
 
 	c.SetProfile(profile)
 	c.Ok(profile)
+}
+
+// Get user by id
+func (c *AccountController) Get() {
+	c.Ok(c.User)
 }

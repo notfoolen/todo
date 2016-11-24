@@ -1,5 +1,11 @@
 # Changelog
 
-## 24 June 2016
+## 24 Nov 2016
+- Registration
+- Authorization
+- Create new board
+- List of boards
 
-- Be able to import Component's templates and styles without using require.
+## 9 Nov 2016
+
+- Init project in github.

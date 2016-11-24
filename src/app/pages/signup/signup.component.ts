@@ -20,27 +20,12 @@ export class SignupComponent {
       response => {
         // localStorage.setItem('id_token', response.json().id_token);
         // this.router.navigate(['home']);
-        this.router.navigate(['home']);
+        this.router.navigate(['boards']);
       },
       error => {
-        alert(error.text());
-        console.log(error.text());
+        console.log(error);
       }
       );
-    /*
-  let body = JSON.stringify({ username, password });
-  this.http.post('http://localhost:3001/users', body, { headers: contentHeaders })
-    .subscribe(
-      response => {
-        localStorage.setItem('id_token', response.json().id_token);
-        this.router.navigate(['home']);
-      },
-      error => {
-        alert(error.text());
-        console.log(error.text());
-      }
-    );
-    */
   }
 
   login() {

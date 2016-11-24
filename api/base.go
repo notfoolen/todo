@@ -7,6 +7,8 @@ import (
 
 	"github.com/notfoolen/todo/models/domains"
 
+	"log"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 )
@@ -91,5 +93,6 @@ func (c *BaseController) getUploadDir() (string, error) {
 
 // SetProfile Устанавливает сессию пользователя
 func (c *BaseController) SetProfile(profile *domains.User) {
-	c.SetSession("user_profile", profile)
+	log.Println("123456")
+	c.SetSession("user_profile", *profile)
 }

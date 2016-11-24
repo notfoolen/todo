@@ -19,6 +19,9 @@
 }
 
 .form-signin {
+  .form-signin-heading {
+    margin-bottom: 20px;
+  }
   .username {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
@@ -35,7 +38,6 @@
   .form-signup-heading {
     margin-bottom: 20px;
   }
-
   .username {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;

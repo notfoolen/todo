@@ -3,6 +3,8 @@ package repositories
 import (
 	"errors"
 
+	"github.com/notfoolen/todo/models/views/user"
+
 	"github.com/notfoolen/todo/library/functions"
 	"github.com/notfoolen/todo/models/domains"
 
@@ -35,7 +37,7 @@ func UserGet(id int) (*domains.User, error) {
 func UserGetByLogin(login string) (*domains.User, error) {
 	o := orm.NewOrm()
 	item := &domains.User{Login: login}
-	err := o.Read(item, "LOgin")
+	err := o.Read(item, "Login")
 
 	if err == orm.ErrNoRows {
 		if err == orm.ErrNoRows {
@@ -46,15 +48,15 @@ func UserGetByLogin(login string) (*domains.User, error) {
 }
 
 // UserSignIn Auth
-func UserSignIn(login, password string) (*domains.User, error) {
+func UserSignIn(userView user.Login) (*domains.User, error) {
 	errMessage := "Invalid login or password"
 
-	user, err := UserGetByLogin(login)
+	user, err := UserGetByLogin(userView.Login)
 	if err != nil {
 		return nil, errors.New(errMessage)
 	}
 
-	pwd := functions.HashPwd(password, user.Salt)
+	pwd := functions.HashPwd(userView.Password, user.Salt)
 	if pwd != user.Pwd {
 		return nil, errors.New(errMessage)
 	}
@@ -63,20 +65,17 @@ func UserSignIn(login, password string) (*domains.User, error) {
 }
 
 // UserSignUp registration
-func UserSignUp(login, email, password string) (*domains.User, error) {
-	if login == "" || password == "" {
-		return nil, errors.New("Login and password is too short")
-	}
-	pwd, salt := functions.HashPwdSalt(password)
+func UserSignUp(userReg user.Registration) (*domains.User, error) {
+	pwd, salt := functions.HashPwdSalt(userReg.Password)
 
-	_, err := UserGetByLogin(login)
+	_, err := UserGetByLogin(userReg.Login)
 	if err == nil {
 		return nil, errors.New("User with this login already exist")
 	}
 
 	item := &domains.User{
-		Login: login,
-		Email: email,
+		Login: userReg.Login,
+		Email: userReg.Email,
 		Pwd:   pwd,
 		Salt:  salt,
 	}

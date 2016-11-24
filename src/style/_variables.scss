@@ -15,3 +15,7 @@ $brand-info:                #5bc0de;
 $brand-warning:             #f0ad4e;
 $brand-danger:              #d9534f;
 $brand-inverse:             $gray-dark;
+
+// Forms
+$custom-control-checked-indicator-bg:         $brand-primary;
+$custom-control-focus-indicator-box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $brand-primary;

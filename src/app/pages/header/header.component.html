@@ -1,0 +1,31 @@
+<div class="masthead">
+    <div class="container">
+        <div class="row flex-items-xs-middle">
+            <div class="col-xs-4">
+            </div>
+            <div class="col-xs-4 text-xs-center">
+                <a class="brand" [routerLink]="['/']">
+                    <!-- <img class="img-fluid brand-img" src="/static/img/logo.png"/> -->
+                    <img class="img-fluid brand-img" src="{{ 'img/logo.png' }}"/>
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <div class="pull-right">
+                    <template [ngIf]="profile">
+                        <div ngbDropdown class="d-inline-block">
+                        <a href="#" class="nav-link pull-xs-right" id="dropdownMenu2" ngbDropdownToggle><i class="fa fa-user"></i> {{profile.login}}</a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                                <a [routerLink]="['/cabinet']" class="dropdown-item">Cabinet</a>
+                                <a href="#" (click)="logout(person)" class="dropdown-item">Logout</a>
+                            </div>
+                        </div>
+                    </template>
+                    <template [ngIf]="!profile">
+                        <a [routerLink]="['/signup']" class="nav-link pull-xs-right"><i class="fa fa-user-plus"></i> Sign up</a>
+                        <a [routerLink]="['/signin']" class="nav-link pull-xs-right"><i class="fa fa-sign-in"></i> Login</a>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

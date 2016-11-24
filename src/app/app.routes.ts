@@ -1,5 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
-import { BoardListComponent, BoardComponent, HomeComponent, SigninComponent, SignupComponent, PageNotFoundComponent } from './pages';
+import { BoardListComponent, HomeComponent, SigninComponent, SignupComponent, PageNotFoundComponent } from './pages';
 import { AuthGuard } from './common/auth.guard';
 
 const appRoutes: Routes = [

@@ -1,12 +1,71 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">
-            <p>{{message}}</p>
-            <ul>
-                <li *ngFor="let value of values">
-                    <span>{{value}} </span>
-                </li>
-            </ul>
+        <div class="col-xs-4" *ngFor="let item of items">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">{{item.title}}</h4>
+                    <p class="card-text">{{item.description}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="card text-xs-center">
+                <div class="card-block">
+                    <button (click)="openModal(content)" class="btn btn-link">create new board...</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<template #content let-c="close" let-d="dismiss">
+    <form (submit)="addBoard($event, title.value, description.value)">
+        <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Create board</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group form-control-default">
+                <label for="form-add-title">Title</label>
+                <input #title type="text" class="form-control" id="form-add-title" placeholder="Enter board title...">
+            </div>
+            <div class="form-group form-control-default">
+                <label for="form-add-description">Description</label>
+                <textarea #description id="form-add-description" class="form-control" placeholder="Enter board description..."></textarea>
+            </div>
+
+            <!-- 
+            <div class="form-group form-control-default">
+                <label for="form-add-description">Board privacy</label>
+                <div class="custom-controls-stacked">
+                    <label class="custom-control custom-radio" for="type-radio1">
+                    <input #type class="custom-control-input" type="radio" id="type-radio1" value=""/>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description"><i class="fa fa-fw fa-globe"></i> Public</span>
+                    <p class="help-block text-muted">Anybody can see the board</p>
+                </label>
+                    <label class="custom-control custom-radio" for="type-radio2">
+                    <input #type class="custom-control-input" type="radio" id="type-radio2" value=""/>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description"><i class="fa fa-fw fa-lock"></i> Private</span>
+                    <p class="help-block text-muted">Anybody who knows the link can see the board</p>
+                </label>
+                    <label class="custom-control custom-radio" for="type-radio3">
+                    <input #type class="custom-control-input" type="radio" id="type-radio3" value=""/>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description"><i class="fa fa-fw fa-user-secret"></i> Secret</span>
+                    <p class="help-block text-muted">Only you can see the board</p>
+                </label>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+                -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Create</button>
+        </div>
+    </form>
+</template>

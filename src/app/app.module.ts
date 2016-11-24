@@ -8,10 +8,11 @@ import { Configuration } from './app.constants';
 import { routing } from './app.routes';
 
 import { AppComponent } from './app.component';
-import { BoardListComponent, BoardComponent, HomeComponent, SigninComponent, SignupComponent, PageNotFoundComponent } from './pages';
-// import { BoardComponent } from './board/board.component';
+import { HeaderComponent, BoardListComponent, HomeComponent, SigninComponent, SignupComponent, PageNotFoundComponent } from './pages';
 
-import { AccountService, BoardService } from './services';
+import { BaseService, AccountService, BoardService } from './services';
+import { AuthGuard } from './common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
@@ -19,18 +20,21 @@ import { AccountService, BoardService } from './services';
         CommonModule,
         FormsModule,
         routing,
-        HttpModule
+        HttpModule,
+        NgbModule.forRoot()
     ],
     declarations: [
         AppComponent,
+        HeaderComponent,
         BoardListComponent,
-        BoardComponent,
         HomeComponent,
         SigninComponent,
         SignupComponent,
         PageNotFoundComponent
     ],
     providers: [
+        AuthGuard,
+        BaseService,
         AccountService,
         BoardService,
         Configuration

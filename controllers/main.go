@@ -1,5 +1,6 @@
 package controllers
 
+// IndexController main controller
 type IndexController struct {
 	BaseController
 }

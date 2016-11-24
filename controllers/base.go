@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"html/template"
 	"strings"
 
 	"github.com/notfoolen/todo/models/domains"
@@ -43,7 +42,7 @@ func (c *BaseController) Init(ctx *context.Context, controllerName, actionName s
 		c.Data["lang"] = "ru"
 	}
 	c.Data["xsrf"] = c.XSRFToken()
-	c.Data["xsrfdata"] = template.HTML(c.XSRFFormHTML())
+	// c.Data["xsrfdata"] = template.HTML(c.XSRFFormHTML())
 
 	// c.Layout = "layout/index.html"
 	c.disableLayout = true

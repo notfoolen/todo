@@ -3,42 +3,38 @@ import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Configuration } from '../app.constants';
+import { Board } from '../types';
+import { BaseService } from './base.service';
+
 
 @Injectable()
 export class BoardService {
 
-    private actionUrl: string;
-    private headers: Headers;
-
-    constructor(private _http: Http, private _configuration: Configuration) {
-        this.actionUrl = _configuration.Server + 'api/boards/';
-
-        this.headers = new Headers();
-        this.headers.append('Content-Type', 'application/json');
-        this.headers.append('Accept', 'application/json');
+    constructor(private _baseService: BaseService) {
     }
 
-    public GetList = (): Observable<any> => {
-        return this._http.get(this.actionUrl).map((response: Response) => <any>response.json());
+    public GetList = (): Observable<Board[]> => {
+        return this._baseService.Get("boards")
+            .map((resp: Response) => {
+                let data = resp.json();
+                let res: Board[] = [];
+                for (var item of data) {
+                    res.push(item);
+                }
+                return res;
+            });
     }
 
-    public Get = (id: number): Observable<Response> => {
-        return this._http.get(this.actionUrl + id).map(res => res.json());
+    public Add = (title: string, description: string): Observable<Board> => {
+        let params = {
+            title: title,
+            description: description,
+        };
+        return this._baseService.Post("boards", params)
+            .map((resp: Response) => {
+                let data = resp.json();
+                return new Board(data.title, data.description, data.dt);
+            });
     }
 
-    public Add = (itemName: string): Observable<Response> => {
-        var toAdd = JSON.stringify({ ItemName: itemName });
-
-        return this._http.post(this.actionUrl, toAdd, { headers: this.headers }).map(res => res.json());
-    }
-
-    public Update = (id: number, itemToUpdate: any): Observable<Response> => {
-        return this._http
-            .put(this.actionUrl + id, JSON.stringify(itemToUpdate), { headers: this.headers })
-            .map(res => res.json());
-    }
-
-    public Delete = (id: number): Observable<Response> => {
-        return this._http.delete(this.actionUrl + id);
-    }
 }
