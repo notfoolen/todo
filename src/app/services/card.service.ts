@@ -6,23 +6,14 @@ import { Configuration } from '../app.constants';
 import { Board } from '../types';
 import { BaseService } from './base.service';
 
-
 @Injectable()
-export class BoardService {
+export class CardService {
 
     constructor(private _baseService: BaseService) {
     }
 
-    public Get = (code: string): Observable<Board> => {
-        return this._baseService.Get("boards/" + code)
-            .map((resp: Response) => {
-                let data = resp.json();
-                return new Board(data.title, data.description, data.dt, data.code);
-            });
-    }
-
     public GetList = (): Observable<Board[]> => {
-        return this._baseService.Get("boards")
+        return this._baseService.Get("cards")
             .map((resp: Response) => {
                 let data = resp.json();
                 let res: Board[] = [];
@@ -38,7 +29,7 @@ export class BoardService {
             title: title,
             description: description,
         };
-        return this._baseService.Post("boards", params)
+        return this._baseService.Post("cards", params)
             .map((resp: Response) => {
                 let data = resp.json();
                 return new Board(data.title, data.description, data.dt, data.code);

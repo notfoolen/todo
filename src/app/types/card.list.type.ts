@@ -1,16 +1,14 @@
 /**
- * Board
+ * CardList
  */
-export class Board {
+export class CardList {
     public title: string;
     public description: string;
     public dt: string;
-    public code: string;
 
-    constructor(title: string, description: string, dt: string, code: string) {
+    constructor(title: string, description: string, dt: string) {
         this.title = title;
         this.description = description;
         this.dt = dt;
-        this.code = code;
     }
 }

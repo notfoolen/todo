@@ -8,7 +8,8 @@ type Board struct {
 	Dt          time.Time `orm:"auto_now_add;type(datetime)"json:"dt"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
-	User        *User     `orm:"rel(fk);on_delete(do_nothing)"json:"user"`
+	User        *User     `orm:"rel(fk);on_delete(do_nothing)"json:"-"`
+	Code        string    `json:"code"`
 
 	Deleted     bool      `json:"-"`
 	DeletedDt   time.Time `orm:"null;type(datetime)"json:"-"`

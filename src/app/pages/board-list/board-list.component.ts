@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { BoardService } from '../../services/board.service';
+import { BoardService } from '../../services';
+import { Board } from '../../types';
 
 @Component({
     selector: 'board-list-component',
     templateUrl: 'board-list.component.html',
+    encapsulation: ViewEncapsulation.None,
+    // styleUrls: ['./board-list.component.scss'],
     providers: [BoardService]
 })
 
 export class BoardListComponent implements OnInit {
 
-    public items: any[];
+    public items: Board[];
     closeResult: string;
     private modalInstance: NgbModalRef; 
 

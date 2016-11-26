@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"math/rand"
+	"strings"
 )
 
 // HashPwd make hash string of user password
@@ -18,22 +19,26 @@ func GetHash(text string) string {
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 
-// GetSalt return salt string
-func GetSalt(length int) string {
-	passCase := "zyxwvutskjhfedcbaABCDEFGHKLMNPQRSTUVWXYZ2345678"
-	pwd := ""
-	len := len(passCase) - 1
+// GenerateRandomString return random string
+func GenerateRandomString(length int, lower bool) string {
+	stack := "zyxwvutskjhfedcbaABCDEFGHKLMNPQRSTUVWXYZ2345678"
+	output := ""
+	len := len(stack) - 1
 	for i := 0; i < length; i++ {
 		pos := rand.Intn(len)
-		pwd = pwd + string(passCase[pos])
+		output += string(stack[pos])
 	}
 
-	return pwd
+	if lower {
+		output = strings.ToLower(output)
+	}
+
+	return output
 }
 
 // HashPwdSalt return salt and hash of user password
 func HashPwdSalt(input string) (pwd string, hash string) {
-	salt := GetSalt(12)
+	salt := GenerateRandomString(12, false)
 	hashPwd := HashPwd(input, salt)
 	return hashPwd, salt
 }

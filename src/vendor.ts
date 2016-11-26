@@ -5,9 +5,6 @@ import '@angular/core';
 import '@angular/common';
 import '@angular/http';
 import '@angular/router';
-// RxJS
-import 'rxjs';
 
-import 'font-awesome-scss/scss/font-awesome.scss';
-// import './style/app.scss';
+import 'font-awesome/scss/font-awesome.scss';
 

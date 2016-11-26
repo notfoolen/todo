@@ -19,7 +19,7 @@ export class SigninComponent {
       .subscribe(
       response => {
         console.log(response);
-        this.router.navigate(['boards']);
+        this.router.navigate(['']);
       },
       error => {
         console.log(error);

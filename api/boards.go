@@ -1,8 +1,6 @@
 package api
 
 import (
-	"strconv"
-
 	"github.com/notfoolen/todo/library"
 	"github.com/notfoolen/todo/models/filters"
 	"github.com/notfoolen/todo/models/views/board"
@@ -22,14 +20,14 @@ func (c *BoardsController) Prepare() {
 	}
 }
 
-// GetByID board by id
-func (c *BoardsController) GetByID() {
-	id, err := strconv.Atoi(c.Ctx.Input.Param(":id"))
-	if err != nil {
-		c.ErrorArgument("id")
+// GetByCode board by code
+func (c *BoardsController) GetByCode() {
+	code := c.Ctx.Input.Param(":code")
+	if code == "" {
+		c.ErrorArgument("code")
 	}
 
-	item, err := repositories.BoardGet(id)
+	item, err := repositories.BoardGetByCode(code)
 	if err != nil {
 		c.Error(err)
 	}
@@ -83,7 +81,7 @@ func (c *BoardsController) Delete() {
 	if err != nil {
 		c.ErrorArgument("id")
 	}
-	ok, err := repositories.BoardDelete(id, c.User.Id)
+	ok, err := repositories.BoardDelete(id, c.User.ID)
 	if err != nil {
 		c.Error(err)
 	} else {

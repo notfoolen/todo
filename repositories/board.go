@@ -6,6 +6,7 @@ import (
 
 	"github.com/astaxie/beego/orm"
 	"github.com/notfoolen/todo/library"
+	"github.com/notfoolen/todo/library/functions"
 	"github.com/notfoolen/todo/models/domains"
 	"github.com/notfoolen/todo/models/filters"
 	"github.com/notfoolen/todo/models/views/board"
@@ -20,8 +21,14 @@ func boardList(o orm.Ormer, filter *filters.BoardFilter, pg *library.Paginator) 
 	qs := o.QueryTable("board").OrderBy("dt")
 
 	if filter != nil {
+		if filter.ID > 0 {
+			qs = qs.Filter("id", filter.ID)
+		}
 		if filter.UserID > 0 {
 			qs = qs.Filter("user_id", filter.UserID)
+		}
+		if filter.Code != "" {
+			qs = qs.Filter("code", filter.Code)
 		}
 	}
 
@@ -60,7 +67,26 @@ func boardGet(o orm.Ormer, id int) (*domains.Board, error) {
 
 // BoardGet return Board by id
 func BoardGet(id int) (*domains.Board, error) {
-	return boardGet(nil, id)
+	filter := &filters.BoardFilter{
+		ID: id,
+	}
+	list, err := boardList(nil, filter, nil)
+	if err != nil {
+		return nil, errors.New("board_not_found")
+	}
+	return list[0], nil
+}
+
+// BoardGetByCode return Board by id
+func BoardGetByCode(code string) (*domains.Board, error) {
+	filter := &filters.BoardFilter{
+		Code: code,
+	}
+	list, err := boardList(nil, filter, nil)
+	if err != nil {
+		return nil, errors.New("board_not_found")
+	}
+	return list[0], nil
 }
 
 func boardAdd(o orm.Ormer, boardNew board.New, userID int) (*domains.Board, error) {
@@ -68,10 +94,13 @@ func boardAdd(o orm.Ormer, boardNew board.New, userID int) (*domains.Board, erro
 		o = orm.NewOrm()
 	}
 
+	code := functions.GenerateRandomString(25, true)
+
 	item := &domains.Board{
 		Title:       boardNew.Title,
 		Description: boardNew.Description,
 		User:        &domains.User{ID: userID},
+		Code:        code,
 	}
 
 	id, err := o.Insert(item)

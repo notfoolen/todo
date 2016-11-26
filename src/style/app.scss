@@ -3,6 +3,10 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 // @import "node_modules/font-awesome/scss/font-awesome";
 
+@import "components/container";
+
 @import "components/header";
 @import "components/footer";
 @import "components/login";
+@import "components/board";
+

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
-import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth, JwtHelper } from 'angular2-jwt';
+// import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth, JwtHelper } from 'angular2-jwt';
 
 @Component({
     selector: 'home-component',
     templateUrl: 'home.component.html',
     providers: [
+        /*
         AuthHttp,
         provideAuth({
             headerName: 'Authorization',
@@ -16,6 +17,7 @@ import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth, JwtHelper } from 'an
             globalHeaders: [{ 'Content-Type': 'application/json' }],
             noJwtError: true
         })
+        */
     ]
 })
 
@@ -26,13 +28,13 @@ export class HomeComponent {
     decodedJwt: string;
     response: string;
     api: string;
-    jwtHelper: JwtHelper = new JwtHelper();
+    // jwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
+    constructor(public router: Router, public http: Http/*, public authHttp: AuthHttp*/) {
         this.message = "Hello from HomeComponent constructor";
 
-        this.jwt = localStorage.getItem('id_token');
-        this.decodedJwt = this.jwt && this.jwtHelper.decodeToken(this.jwt);
+        // this.jwt = localStorage.getItem('id_token');
+        // this.decodedJwt = this.jwt && this.jwtHelper.decodeToken(this.jwt);
     }
 
     logout() {
@@ -58,14 +60,16 @@ export class HomeComponent {
                     error => this.response = error.text()
                 );
         }
+        /*
         if (type === 'Secured') {
-            // For protected routes, use AuthHttp
+            // For protected routes, use AuthHttp1
             this.authHttp.get(url)
                 .subscribe(
                     response => this.response = response.text(),
                     error => this.response = error.text()
                 );
         }
+        */
     }
 
 }

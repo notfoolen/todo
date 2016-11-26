@@ -1,0 +1,20 @@
+.board-sm {
+    min-height: 105px;
+    &:hover, &:focus, &:active {
+        
+    }
+}
+
+.board-new {
+    width: 100%;
+    background: rgba($color_light, .3);
+    color: $gray-light;
+    line-height: 105px;
+    &:hover,
+    &:focus,
+    &:active {
+        background: rgba($color_light, .8);
+        text-decoration: none;
+        color: $gray;
+    }
+}

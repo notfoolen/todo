@@ -18,9 +18,8 @@ export class SignupComponent {
     this._service.SignUp(username, email, password, repassword)
       .subscribe(
       response => {
-        // localStorage.setItem('id_token', response.json().id_token);
-        // this.router.navigate(['home']);
-        this.router.navigate(['boards']);
+        console.log(response);
+        this.router.navigate(['']);
       },
       error => {
         console.log(error);

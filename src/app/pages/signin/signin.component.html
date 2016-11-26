@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="form-signin" (submit)="signin(username.value, password.value)">
+  <form class="form-signin" (submit)="signin(username.value, password.value)" (keyup.enter)="signin(username.value, password.value)">
     <h3 class="form-signin-heading">Please sign in</h3>
 
     <label for="username" class="sr-only">Username</label>

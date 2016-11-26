@@ -1,0 +1,13 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+  <name> -- <role> -- <twitter>
+
+# THANKS
+
+# TECHNOLOGY COLOPHON
+
+  HTML5, SCSS
+  Angular2, TypeScript, Webpack

@@ -1,12 +1,12 @@
 import { Routes, RouterModule } from '@angular/router';
-import { BoardListComponent, HomeComponent, SigninComponent, SignupComponent, PageNotFoundComponent } from './pages';
+import { BoardComponent, BoardListComponent, SigninComponent, SignupComponent, PageNotFoundComponent } from './pages';
 import { AuthGuard } from './common/auth.guard';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'boards', component: BoardListComponent, canActivate: [AuthGuard] },
+    { path: '', component: BoardListComponent, canActivate: [AuthGuard] },
     { path: 'signin',  component: SigninComponent },
     { path: 'signup', component: SignupComponent },
+    { path: 'board/:code', component: BoardComponent },
     { path: '**',       component: PageNotFoundComponent },
 ];
 

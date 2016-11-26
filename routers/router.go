@@ -23,7 +23,7 @@ func init() {
 			beego.NSRouter("/account", &api.AccountController{}, "get:Get"),
 
 			// boards
-			beego.NSRouter("/boards/:id([0-9]+)", &api.BoardsController{}, "get:GetByID"),
+			beego.NSRouter("/boards/:code", &api.BoardsController{}, "get:GetByCode"),
 			beego.NSRouter("/boards", &api.BoardsController{}),
 		)
 	beego.AddNamespace(apiNs)
