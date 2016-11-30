@@ -84,7 +84,6 @@
     "css-loader": "^0.26.0",
     "sass-loader": "^4.0.2",
     "node-sass": "^3.13.0",
-
     "sass-lint": "^1.10.2"
   }
 }

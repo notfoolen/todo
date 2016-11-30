@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AccountService } from '../../services';
+import { BaseService } from '../../services';
 import { User } from '../../types';
-import { Subscription }    from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-header',
@@ -14,17 +14,7 @@ export class HeaderComponent {
     private profile: User;
     private _subscription: Subscription;
 
-    constructor(private _service: AccountService) {
-        this._service.GetProfile()
-            .subscribe(
-            user => {
-                this.profile = user;
-            },
-            error => {
-                this.profile = null;
-            }
-            );
-
+    constructor(private _service: BaseService) {
         this.profile = _service.profile;
         this._subscription = _service.profileChange.subscribe((value) => {
             this.profile = value;
@@ -32,9 +22,13 @@ export class HeaderComponent {
     }
 
     ngOnDestroy() {
-        if(this._subscription) {
+        if (this._subscription) {
             this._subscription.unsubscribe();
         }
+    }
+
+    public logout() {
+        this._service.logout();
     }
 
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { contentHeaders } from '../../common/headers';
-import { AccountService } from '../../services';
+import { BaseService } from '../../services';
 
 @Component({
   selector: 'signup',
@@ -11,7 +11,7 @@ import { AccountService } from '../../services';
 
 export class SignupComponent {
 
-  constructor(public router: Router, private _service: AccountService) {
+  constructor(public router: Router, private _service: BaseService) {
   }
 
   signup(username: string, email: string, password: string, repassword: string) {
@@ -19,7 +19,7 @@ export class SignupComponent {
       .subscribe(
       response => {
         console.log(response);
-        this.router.navigate(['']);
+        this.router.navigate(['/cabinet']);
       },
       error => {
         console.log(error);

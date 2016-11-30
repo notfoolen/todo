@@ -22,7 +22,7 @@ func init() {
 	orm.RegisterModel(new(domains.User))
 
 	orm.RegisterModel(new(domains.Board))
-	orm.RegisterModel(new(domains.CardList), new(domains.Card))
+	orm.RegisterModel(new(domains.CardDesk), new(domains.Card))
 
 	orm.RunCommand()
 	orm.Debug = true

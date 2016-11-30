@@ -2,8 +2,8 @@ package domains
 
 import "time"
 
-// CardList list of cards
-type CardList struct {
+// CardDesk list of cards
+type CardDesk struct {
 	ID          int       `json:"id"`
 	Dt          time.Time `orm:"auto_now_add;type(datetime)"json:"dt"`
 	Title       string    `json:"title"`

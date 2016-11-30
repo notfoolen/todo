@@ -1,16 +1,16 @@
 .masthead {
   margin-bottom: 2rem;
   background-color: $brand-primary;
-  -webkit-box-shadow: inset 0 -.1rem .25rem rgba(0,0,0,.1);
-          box-shadow: inset 0 -.1rem .25rem rgba(0,0,0,.1);
-
+  background: linear-gradient(135deg, $brand-primary, lighten($brand-primary, 5));
+  -webkit-box-shadow: inset 0 -.1rem .25rem rgba(0, 0, 0, .1);
+  box-shadow: inset 0 -.1rem .25rem rgba(0, 0, 0, .1);
   .brand {
     .brand-img {
       height: 30px;
-    } 
+    }
     &:active {
-        position: relative;
-        top: 1px;
+      position: relative;
+      top: 1px;
     }
   }
 }
@@ -21,16 +21,20 @@
   font-weight: 500;
   color: #cdddeb;
 }
+
 .nav-link:hover,
 .nav-link:focus {
   color: #fff;
   background-color: transparent;
 }
 
+
 /* Active state gets a caret at the bottom */
+
 .nav-link.active {
   color: #fff;
 }
+
 .nav-link.active:after {
   position: absolute;
   bottom: 0;

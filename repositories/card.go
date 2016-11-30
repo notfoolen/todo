@@ -30,7 +30,7 @@ func CardGet(id int) (*domains.Card, error) {
 	return cardGet(nil, id)
 }
 
-func cardAdd(o orm.Ormer, userID, boardID, listID int, title, description string) (*domains.Card, error) {
+func cardAdd(o orm.Ormer, userID, boardID, deskID int, title, description string) (*domains.Card, error) {
 	if o == nil {
 		o = orm.NewOrm()
 	}
@@ -40,7 +40,7 @@ func cardAdd(o orm.Ormer, userID, boardID, listID int, title, description string
 		Description: description,
 		User:        &domains.User{ID: userID},
 		Board:       &domains.Board{ID: boardID},
-		List:        &domains.CardList{ID: listID},
+		Desk:        &domains.CardDesk{ID: deskID},
 	}
 
 	id, err := o.Insert(item)

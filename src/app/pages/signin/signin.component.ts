@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { contentHeaders } from '../../common/headers';
-import { AccountService } from '../../services';
+import { BaseService } from '../../services';
+import { Error } from '../../types';
 
 @Component({
   selector: 'signin',
@@ -11,17 +12,19 @@ import { AccountService } from '../../services';
 
 export class SigninComponent {
 
-  constructor(public router: Router, private _service: AccountService) {
+  public error: Error;
+
+  constructor(public router: Router, private _service: BaseService) {
   }
 
   signin(username: string, password: string) {
     this._service.SignIn(username, password)
       .subscribe(
       response => {
-        console.log(response);
-        this.router.navigate(['']);
+        this.router.navigate(['/cabinet']);
       },
       error => {
+        this.error = new Error(error.status, error._body);
         console.log(error);
       }
       );

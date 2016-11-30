@@ -10,14 +10,14 @@
             </a>
         </div>
         <div class="col-xs-4">
-            <a href="#" class="card text-xs-center board-sm board-new" (click)="openModal(content)">
+            <a href="javascript:void(0);" class="card text-xs-center board-sm board-new" (click)="openModal(content)">
                 create new board...
             </a>
         </div>
     </div>
 </div>
 
-<template #content let-c="close" let-d="dismiss">
+<template javascript:void(0);content let-c="close" let-d="dismiss">
     <form (submit)="addBoard($event, title.value, description.value)">
         <div class="modal-header">
             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -28,11 +28,11 @@
         <div class="modal-body">
             <div class="form-group form-control-default">
                 <label for="form-add-title">Title</label>
-                <input #title type="text" class="form-control" id="form-add-title" placeholder="Enter board title...">
+                <input javascript:void(0);title type="text" class="form-control" id="form-add-title" placeholder="Enter board title...">
             </div>
             <div class="form-group form-control-default">
                 <label for="form-add-description">Description</label>
-                <textarea #description id="form-add-description" class="form-control" placeholder="Enter board description..."></textarea>
+                <textarea javascript:void(0);description id="form-add-description" class="form-control" placeholder="Enter board description..."></textarea>
             </div>
 
             <!-- 
@@ -40,19 +40,19 @@
                 <label for="form-add-description">Board privacy</label>
                 <div class="custom-controls-stacked">
                     <label class="custom-control custom-radio" for="type-radio1">
-                    <input #type class="custom-control-input" type="radio" id="type-radio1" value=""/>
+                    <input javascript:void(0);type class="custom-control-input" type="radio" id="type-radio1" value=""/>
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description"><i class="fa fa-fw fa-globe"></i> Public</span>
                     <p class="help-block text-muted">Anybody can see the board</p>
                 </label>
                     <label class="custom-control custom-radio" for="type-radio2">
-                    <input #type class="custom-control-input" type="radio" id="type-radio2" value=""/>
+                    <input javascript:void(0);type class="custom-control-input" type="radio" id="type-radio2" value=""/>
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description"><i class="fa fa-fw fa-lock"></i> Private</span>
                     <p class="help-block text-muted">Anybody who knows the link can see the board</p>
                 </label>
                     <label class="custom-control custom-radio" for="type-radio3">
-                    <input #type class="custom-control-input" type="radio" id="type-radio3" value=""/>
+                    <input javascript:void(0);type class="custom-control-input" type="radio" id="type-radio3" value=""/>
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description"><i class="fa fa-fw fa-user-secret"></i> Secret</span>
                     <p class="help-block text-muted">Only you can see the board</p>

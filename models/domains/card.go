@@ -10,7 +10,7 @@ type Card struct {
 	Description string    `json:"description"`
 	User        *User     `orm:"rel(fk);on_delete(do_nothing)"json:"user"`
 	Board       *Board    `orm:"rel(fk);on_delete(do_nothing)"json:"board"`
-	List        *CardList `orm:"rel(fk);on_delete(do_nothing)"json:"list"`
+	Desk        *CardDesk `orm:"rel(fk);on_delete(do_nothing)"json:"desk"`
 
 	Deleted     bool      `json:"-"`
 	DeletedDt   time.Time `orm:"null;type(datetime)"json:"-"`

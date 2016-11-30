@@ -23,8 +23,9 @@ import {
   SigninComponent,
   SignupComponent,
   PageNotFoundComponent } from './pages';
-import { BaseService, AccountService, BoardService } from './services';
+import { BaseService, BoardService } from './services';
 import { AuthGuard } from './common';
+import { Cookie } from './helpers';
 import { Configuration } from './app.constants';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -32,11 +33,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState,
-  AuthGuard,
+  Cookie,
+  Configuration,
   BaseService,
-  AccountService,
   BoardService,
-  Configuration
+  AuthGuard,
 ];
 
 type StoreType = {
