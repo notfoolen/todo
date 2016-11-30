@@ -1,8 +1,9 @@
 node_modules/
 bower_components/
-.vscode
 *.log*
 *.exe*
 static
 .tmp
-
+tmp/
+main
+todo

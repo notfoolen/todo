@@ -18,6 +18,7 @@ func init() {
 			// registration, login
 			beego.NSRouter("/signup", &api.AccountController{}, "post:SignUp"),
 			beego.NSRouter("/signin", &api.AccountController{}, "post:SignIn"),
+			beego.NSRouter("/logout", &api.AccountController{}, "get:Logout"),
 
 			// account
 			beego.NSRouter("/account", &api.AccountController{}, "get:Get"),

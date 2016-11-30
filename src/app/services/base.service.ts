@@ -112,7 +112,7 @@ export class BaseService {
 
     public IsLogged = (): Observable<boolean> => {
         return this.GetProfile().map((user: User) => {
-            return user ? true : false;;
+            return user ? true : false;
         });
     }
 
@@ -145,12 +145,16 @@ export class BaseService {
             });
     }
 
-    public logout() {
-        this._cookie.delete(this._configuration.CookieSID);
-        this._cookie.delete(this._configuration.CookieXSRF);
+    public Logout() {
+        // this._cookie.delete(this._configuration.CookieSID);
+        // this._cookie.delete(this._configuration.CookieXSRF);
 
-        this.router.navigate(['/signin']);
-        this.setProfile(null);
+        return this.Get("logout")
+            .map((resp: Response) => {
+                // this.router.navigate(['/logout']);
+                this.setProfile(null);;
+                return true;
+            });
     }
 
 }

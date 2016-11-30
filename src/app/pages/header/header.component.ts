@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { BaseService } from '../../services';
 import { User } from '../../types';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,7 +15,7 @@ export class HeaderComponent {
     private profile: User;
     private _subscription: Subscription;
 
-    constructor(private _service: BaseService) {
+    constructor(private _router: Router, private _service: BaseService) {
         this.profile = _service.profile;
         this._subscription = _service.profileChange.subscribe((value) => {
             this.profile = value;
@@ -28,7 +29,15 @@ export class HeaderComponent {
     }
 
     public logout() {
-        this._service.logout();
+        this._service.Logout()
+            .subscribe(
+            response => {
+                this._router.navigate(['/signin']);
+            },
+            error => {
+                console.log(error);
+            }
+            );
     }
 
 }

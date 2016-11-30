@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<template javascript:void(0);content let-c="close" let-d="dismiss">
+<template #content let-c="close" let-d="dismiss">
     <form (submit)="addBoard($event, title.value, description.value)">
         <div class="modal-header">
             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -28,11 +28,11 @@
         <div class="modal-body">
             <div class="form-group form-control-default">
                 <label for="form-add-title">Title</label>
-                <input javascript:void(0);title type="text" class="form-control" id="form-add-title" placeholder="Enter board title...">
+                <input #title type="text" class="form-control" id="form-add-title" placeholder="Enter board title...">
             </div>
             <div class="form-group form-control-default">
                 <label for="form-add-description">Description</label>
-                <textarea javascript:void(0);description id="form-add-description" class="form-control" placeholder="Enter board description..."></textarea>
+                <textarea #description id="form-add-description" class="form-control" placeholder="Enter board description..."></textarea>
             </div>
 
             <!-- 

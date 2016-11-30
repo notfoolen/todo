@@ -55,6 +55,12 @@ func (c *AccountController) SignUp() {
 	c.Ok(profile)
 }
 
+// Logout unset user profile from session
+func (c *AccountController) Logout() {
+	c.UnsetProfile()
+	c.Ok(true)
+}
+
 // Get user by id
 func (c *AccountController) Get() {
 	c.Ok(c.User)

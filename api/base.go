@@ -7,8 +7,6 @@ import (
 
 	"github.com/notfoolen/todo/models/domains"
 
-	"log"
-
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 )
@@ -73,7 +71,7 @@ func (c *BaseController) ErrorArgument(params ...string) {
 	c.CustomAbort(400, mes)
 }
 
-// GetFullImagePath Полный путь к файлу
+// GetFullImagePath full path to file
 func (c *BaseController) GetFullImagePath(path string) (string, error) {
 	uploadDir, err := filepath.Abs(storageRoot + "/original/")
 	if err != nil {
@@ -91,8 +89,13 @@ func (c *BaseController) getUploadDir() (string, error) {
 	return uploadDir, err
 }
 
-// SetProfile Устанавливает сессию пользователя
+// SetProfile set user session
 func (c *BaseController) SetProfile(profile *domains.User) {
-	log.Println("123456")
 	c.SetSession("user_profile", *profile)
+}
+
+// UnsetProfile destroy user session
+func (c *BaseController) UnsetProfile() {
+	// c.DelSession("user_profile")
+	c.DestroySession()
 }
