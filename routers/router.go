@@ -26,6 +26,9 @@ func init() {
 			// boards
 			beego.NSRouter("/boards/:code", &api.BoardsController{}, "get:GetByCode"),
 			beego.NSRouter("/boards", &api.BoardsController{}),
+
+			beego.NSRouter("/desks", &api.CardsController{}),
+			beego.NSRouter("/cards", &api.DesksController{}),
 		)
 	beego.AddNamespace(apiNs)
 }

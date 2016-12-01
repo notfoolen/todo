@@ -14,11 +14,13 @@ export class HeaderComponent {
 
     private profile: User;
     private _subscription: Subscription;
+    public baseLink = "";
 
     constructor(private _router: Router, private _service: BaseService) {
         this.profile = _service.profile;
         this._subscription = _service.profileChange.subscribe((value) => {
             this.profile = value;
+            this.baseLink = value ? '/cabinet' : ''; 
         });
     }
 

@@ -22,12 +22,17 @@ import {
   HomeComponent,
   SigninComponent,
   SignupComponent,
-  PageNotFoundComponent } from './pages';
+  PageNotFoundComponent
+} from './pages';
+import {
+  DeskComponent
+} from './components';
 import { BaseService, BoardService } from './services';
 import { AuthGuard } from './common';
 import { Cookie } from './helpers';
 import { Configuration } from './app.constants';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -53,7 +58,8 @@ type StoreType = {
     FormsModule,
     routing,
     HttpModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    DragulaModule
   ],
   declarations: [
     AppComponent,
@@ -63,7 +69,9 @@ type StoreType = {
     HomeComponent,
     SigninComponent,
     SignupComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+
+    DeskComponent
   ],
   providers: [
     ENV_PROVIDERS,

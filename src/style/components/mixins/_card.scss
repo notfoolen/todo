@@ -1,0 +1,10 @@
+@mixin card-variant($background, $border) {
+  background-color: $background;
+  border-color: $border;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: darken($background, 10);
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,10 @@
+.fa {
+  color: $icon-color;
+}
+
+.btn,
+.masthead {
+  .fa {
+    color: inherit;
+  }
+}

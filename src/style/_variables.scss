@@ -1,7 +1,7 @@
 $enable-flex: true;
 
 $body-bg: #f5f8fa;
-$color_light: #fff;
+$color-light: #fff;
 
 $gray-dark:                 #373a3c;
 $gray:                      #55595c;
@@ -16,6 +16,23 @@ $brand-warning:             #f0ad4e;
 $brand-danger:              #d9534f;
 $brand-inverse:             $gray-dark;
 
+// Fonts
+$font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-size-root: 14px;
+
 // Forms
 $custom-control-checked-indicator-bg:         $brand-primary;
 $custom-control-focus-indicator-box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $brand-primary;
+
+// Fa
+$icon-color: #9da9b0;
+
+// Header
+$header-margin: 2rem;
+
+// Cards
+$card-spacer-y: .5rem;
+$card-spacer-x: .75rem;
+
+// Card list
+$card-list-margin-x: 1rem;

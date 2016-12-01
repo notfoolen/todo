@@ -6,6 +6,8 @@
         "**/.hg": true,
         "**/.DS_Store": true,
         "**/node_modules": true,
-        "**/tmp": true
+        "**/tmp": true,
+        "**.exe*": true,
+        "**.log*": true
     }
 }

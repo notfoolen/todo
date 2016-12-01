@@ -15,4 +15,6 @@ type Card struct {
 	Deleted     bool      `json:"-"`
 	DeletedDt   time.Time `orm:"null;type(datetime)"json:"-"`
 	DeletedUser *User     `orm:"null;rel(fk);on_delete(set_null)"json:"-"`
+
+	Order int `json:"order"`
 }
