@@ -22,8 +22,10 @@ func (c *DesksController) Prepare() {
 
 // Get list user's boards
 func (c *DesksController) Get() {
+	code := c.Ctx.Input.Param(":code")
 	filter := &filters.CardDeskFilter{
-		UserID: c.User.ID,
+		UserID:    c.User.ID,
+		BoardCode: code,
 	}
 
 	lastID, _ := c.GetInt("lastId")

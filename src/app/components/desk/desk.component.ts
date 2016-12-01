@@ -13,9 +13,11 @@ import { CardDesk, Card, Board } from '../../types';
 
 export class DeskComponent implements OnInit {
 
-    @Input() card: Card;
+    @Input() desk: CardDesk;
 
     private modalInstance: NgbModalRef;
+    public modalLoading: boolean = false;
+    closeResult: string;
     private subscription: Subscription;
 
     private boardCode: string;
@@ -26,6 +28,25 @@ export class DeskComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return `with: ${reason}`;
+        }
+    }
+
+    openModal(content: any) {
+        this.modalInstance = this.modalService.open(content);
+        this.modalInstance.result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
     }
 
 }

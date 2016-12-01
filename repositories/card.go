@@ -31,6 +31,9 @@ func cardList(o orm.Ormer, filter *filters.CardFilter, pg *library.Paginator) ([
 		if filter.CardDeskID > 0 {
 			qs = qs.Filter("desk_id", filter.CardDeskID)
 		}
+		if filter.RootIds != nil && len(filter.RootIds) > 0 {
+			qs = qs.Filter("desk_id__in", filter.RootIds)
+		}
 	}
 
 	// Paginator

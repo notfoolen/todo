@@ -31,6 +31,9 @@ func cardDeskList(o orm.Ormer, filter *filters.CardDeskFilter, pg *library.Pagin
 		if filter.BoardID > 0 {
 			qs = qs.Filter("board_id", filter.BoardID)
 		}
+		if filter.BoardCode != "" {
+			qs = qs.Filter("board__code", filter.BoardCode)
+		}
 	}
 
 	// Paginator
@@ -39,6 +42,34 @@ func cardDeskList(o orm.Ormer, filter *filters.CardDeskFilter, pg *library.Pagin
 	}
 
 	_, err := qs.All(&items)
+
+	links := make(map[int]int, len(items))
+	var ids []int
+	for index, item := range items {
+		ids = append(ids, item.ID)
+		links[item.ID] = index
+	}
+
+	if len(ids) > 0 {
+		subFilter := &filters.CardFilter{
+			RootIds: ids,
+		}
+
+		cards, err := CardList(subFilter, nil)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, item := range cards {
+			index := links[item.Desk.ID]
+
+			if items[index].Cards == nil {
+				items[index].Cards = []*domains.Card{}
+			}
+
+			items[index].Cards = append(items[index].Cards, item)
+		}
+	}
 
 	return items, err
 }

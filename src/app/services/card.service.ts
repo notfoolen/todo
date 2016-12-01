@@ -36,8 +36,11 @@ export class CardService {
     }
 
 
-    public GetDeskList = (): Observable<CardDesk[]> => {
-        return this._baseService.Get("desks")
+    public GetDeskList = (code: string): Observable<CardDesk[]> => {
+        let params = {
+            code: code
+        };
+        return this._baseService.Get("desks", params)
             .map((resp: Response) => {
                 let data = resp.json();
                 let res: CardDesk[] = [];

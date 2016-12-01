@@ -1,28 +1,26 @@
 <div class="container container-fp container-top">
-  <div class="row m-0 mb-1">
-    <div *ngIf="board">
-      <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">{{board.title}}</a>
-      <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-star"></i></a>
-      <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-lock"></i> private</a>
+    <div class="row m-0 mb-1">
+        <div *ngIf="board">
+            <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">{{board.title}}</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-star"></i></a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-lock"></i> private</a>
+        </div>
     </div>
-  </div>
 
-  <div class="row m-0 board-card-list">
-    <desk-component></desk-component>
-    <desk-component></desk-component>
-    <desk-component></desk-component>
+    <div class="row m-0 board-card-list">
+        <desk-component *ngFor="let desk of desks" [desk]="desk"></desk-component>
 
-    <div class="card desk desk-new flex-xs-top">
-      <a href="javascript:void(0);" class="card-block" (click)="openModal(newDesk)">
-        Add a list...
-      </a>
+        <div class="card desk desk-new flex-xs-top">
+            <a href="javascript:void(0);" class="card-block" (click)="openModal(newDesk)">
+                Add a list...
+            </a>
+        </div>
     </div>
-  </div>
 
 </div>
 
 <template #newDesk let-c="close" let-d="dismiss">
-    <form (submit)="addList(title.value)">
+    <form (submit)="addDesk(title.value)">
         <div class="modal-header">
             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
@@ -33,27 +31,6 @@
             <div class="form-group form-control-default">
                 <label for="form-add-title">Title</label>
                 <input #title type="text" class="form-control" id="form-add-title" placeholder="Enter list title...">
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cancel</button>
-            <button type="submit" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Create</button>
-        </div>
-    </form>
-</template>
-
-<template #newCard let-c="close" let-d="dismiss">
-    <form (submit)="addCard(title.value)">
-        <div class="modal-header">
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <h5 class="modal-title">Create card</h5>
-        </div>
-        <div class="modal-body">
-            <div class="form-group form-control-default">
-                <label for="form-add-title">Title</label>
-                <input #title type="text" class="form-control" id="form-add-title" placeholder="Enter card title...">
             </div>
         </div>
         <div class="modal-footer">

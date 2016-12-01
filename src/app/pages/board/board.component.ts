@@ -36,6 +36,14 @@ export class BoardComponent implements OnInit {
                 error => console.log(error),
                 () => console.log('Get board complete')
                 );
+
+            this._service.GetDeskList(this.boardCode)
+                .subscribe(
+                data => this.desks = data,
+                error => console.log(error),
+                () => console.log('Get board complete')
+                );
+
         });
     }
 
@@ -62,7 +70,7 @@ export class BoardComponent implements OnInit {
         this.modalLoading = true;
         this._service.AddCardDesk(title)
             .subscribe(
-            data => this.items.push(data),
+            data => this.desks.push(data),
             error => console.log(error),
             () => {
                 this.modalLoading = false;

@@ -46,7 +46,7 @@ export class BaseService {
             );
     }
 
-    public Get = (url: string, params?: any[]): Observable<Response> => {
+    public Get = (url: string, params?: any): Observable<Response> => {
         let searchParams: URLSearchParams = new URLSearchParams();
         for (var key in params) {
             searchParams.set(key, params[key]);
