@@ -70,14 +70,9 @@ export class BaseService {
         return this._http.put(actionUrl, jsonParams, { headers: this.headers });// .map(res => res.json());
     }
 
-    public Delete = (url: string, params: any[]): Observable<Response> => {
-        let searchParams: URLSearchParams = new URLSearchParams();
-        for (var key in params) {
-            searchParams.set(key, params[key]);
-        }
-
-        let actionUrl = this.actionUrl + url;
-        return this._http.delete(actionUrl, { search: searchParams, headers: this.headers });// .map(res => res.json());
+    public Delete = (url: string, id: number): Observable<Response> => {
+        let actionUrl = this.actionUrl + url + '/id';
+        return this._http.delete(actionUrl, { headers: this.headers });// .map(res => res.json());
     }
 
     private getXSRF(): string {

@@ -14,7 +14,7 @@
         <a href="javascript:void(0);" class="card-details" *ngFor="let item of desk.cards">{{item.title}}</a>
     </div>
     <div class="card-block card-block-new" [hidden]="!addAreaShown">
-        <textarea #title name="card-title" [(ngModel)]="editCard.title" (keydown.enter)="addCard()" class="form-control card-details-edit"></textarea>
+        <textarea #title name="card-title" [(ngModel)]="eCard.title" (keydown.enter)="addCard()" class="form-control card-details-edit"></textarea>
         <button class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add</button>
         <button type="button" class="btn btn-sm close" aria-label="Close" (click)="closeAddArea()"><span aria-hidden="true">&times;</span></button>
     </div>

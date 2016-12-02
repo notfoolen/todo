@@ -113,7 +113,7 @@ export class BoardComponent implements OnInit {
 
     addDesk(title: string) {
         this.modalLoading = true;
-        this._service.AddCardDesk(title)
+        this._service.AddDesk(title)
             .subscribe(
             data => this.desks.push(data),
             error => console.log(error),

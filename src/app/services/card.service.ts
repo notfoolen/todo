@@ -25,12 +25,23 @@ export class CardService {
     }
 
     public AddCard = (item: Card): Observable<Card> => {
-        let params = {
-            title: item.title,
-            cardDeskId: item.deskId,
-            order: item.order
-        };
-        return this._baseService.Post("cards", params)
+        return this._baseService.Post("cards", item)
+            .map((resp: Response) => {
+                let data = resp.json();
+                return new Card(data);
+            });
+    }
+
+    public EditCard = (item: Card): Observable<Card> => {
+        return this._baseService.Put("cards", item)
+            .map((resp: Response) => {
+                let data = resp.json();
+                return new Card(data);
+            });
+    }
+
+    public DeleteCard = (id: number): Observable<Card> => {
+        return this._baseService.Delete("cards", id)
             .map((resp: Response) => {
                 let data = resp.json();
                 return new Card(data);
@@ -59,7 +70,7 @@ export class CardService {
             });
     }
 
-    public AddCardDesk = (title: string): Observable<CardDesk> => {
+    public AddDesk = (title: string): Observable<CardDesk> => {
         let params = {
             title: title
         };
@@ -67,6 +78,22 @@ export class CardService {
             .map((resp: Response) => {
                 let data = resp.json();
                 return new CardDesk(data);
+            });
+    }
+
+    public EditDesk = (item: Card): Observable<Card> => {
+        return this._baseService.Put("desks", item)
+            .map((resp: Response) => {
+                let data = resp.json();
+                return new Card(data);
+            });
+    }
+
+    public DeleteDesk = (id: number): Observable<Card> => {
+        return this._baseService.Delete("desks", id)
+            .map((resp: Response) => {
+                let data = resp.json();
+                return new Card(data);
             });
     }
 

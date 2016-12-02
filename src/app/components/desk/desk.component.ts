@@ -23,13 +23,13 @@ export class DeskComponent {
     private subscription: Subscription;
 
     private modalInstance: NgbModalRef;
-    public modalLoading: boolean = false;
+    public loading: boolean = false;
     closeResult: string;
 
     public addAreaShown = false;
     private focusEl: any;
 
-    public editCard: Card = new Card();
+    public eCard: Card = new Card();
 
     constructor(private _eref: ElementRef,
         private activateRoute: ActivatedRoute,
@@ -77,26 +77,28 @@ export class DeskComponent {
     }
 
     public addCard() {
-        this.modalLoading = true;
-        this.editCard.deskId = this.desk.id;
-        this.editCard.order = 0;
+        this.loading = true;
+        this.eCard.deskId = this.desk.id;
+        this.eCard.order = 0;
 
         if (this.desk.cards.length > 0) {
-            this.editCard.order = this.desk.cards[this.desk.cards.length - 1].order + 1;
+            this.eCard.order = this.desk.cards[this.desk.cards.length - 1].order + 1;
         }
 
-        this._service.AddCard(this.editCard)
+        this._service.AddCard(this.eCard)
             .subscribe(
             data => this.desk.cards.push(data),
             error => console.log(error),
             () => {
-                this.editCard = new Card();
+                this.eCard = new Card();
             }
             );
     }
 
-    public deleteDesk() {
+    public editCard() {
+    }
 
+    public deleteCard() {
     }
 
 }
