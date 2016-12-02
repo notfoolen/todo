@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <div class="row m-0 board-card-list" [dragula]='"bag-desk"' [dragulaModel]='desks'>
+    <div class="row m-0 board-card-list flex-nw" [dragula]='"bag-desk"' [dragulaModel]='desks'>
         <desk-component class="desk-container" [desk]="desk" *ngFor="let desk of desks"></desk-component>
 
         <div class="desk-container">

@@ -37,6 +37,7 @@ a.card-warning {
 }
 
 .board-card-list {
+    overflow: auto;
     .card {
         width: 270px;
         margin-right: $card-list-margin-x;
