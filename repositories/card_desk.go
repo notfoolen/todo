@@ -10,6 +10,8 @@ import (
 	"github.com/notfoolen/todo/models/domains"
 	"github.com/notfoolen/todo/models/filters"
 
+	"log"
+
 	desk "github.com/notfoolen/todo/models/views/carddesk"
 )
 
@@ -19,7 +21,7 @@ func cardDeskList(o orm.Ormer, filter *filters.CardDeskFilter, pg *library.Pagin
 	if o == nil {
 		o = orm.NewOrm()
 	}
-	qs := o.QueryTable("card_desk").OrderBy("-order")
+	qs := o.QueryTable("card_desk").OrderBy("order")
 
 	if filter != nil {
 		if filter.ID > 0 {
@@ -60,6 +62,8 @@ func cardDeskList(o orm.Ormer, filter *filters.CardDeskFilter, pg *library.Pagin
 			return nil, err
 		}
 
+		log.Println(len(cards))
+
 		for _, item := range cards {
 			index := links[item.Desk.ID]
 
@@ -89,7 +93,7 @@ func cardDeskGet(o orm.Ormer, id int) (*domains.CardDesk, error) {
 
 	if err != nil {
 		if err == orm.ErrNoRows {
-			return nil, errors.New("No card list found")
+			return nil, errors.New("card_desk_not_found")
 		}
 		return nil, err
 	}
@@ -177,4 +181,27 @@ func CardDeskDelete(id, userID int) (bool, error) {
 	}
 
 	return true, nil
+}
+
+func deskReorder(o orm.Ormer, ids []int, userID int) (bool, error) {
+	if o == nil {
+		o = orm.NewOrm()
+	}
+
+	for index, id := range ids {
+		num, err := o.QueryTable("card_desk").Filter("id", id).Filter("user_id", userID).Update(orm.Params{
+			"order": index,
+		})
+		if err != nil || num != 1 {
+			o.Rollback()
+			return false, errors.New("reorder_card_error")
+		}
+	}
+
+	return true, nil
+}
+
+// DeskReorder reorder cards
+func DeskReorder(ids []int, userID int) (bool, error) {
+	return deskReorder(nil, ids, userID)
 }

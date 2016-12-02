@@ -19,7 +19,7 @@ func cardList(o orm.Ormer, filter *filters.CardFilter, pg *library.Paginator) ([
 	if o == nil {
 		o = orm.NewOrm()
 	}
-	qs := o.QueryTable("card").OrderBy("-order")
+	qs := o.QueryTable("card").OrderBy("order")
 
 	if filter != nil {
 		if filter.ID > 0 {
@@ -61,7 +61,7 @@ func cardGet(o orm.Ormer, id int) (*domains.Card, error) {
 
 	if err != nil {
 		if err == orm.ErrNoRows {
-			return nil, errors.New("No card list found")
+			return nil, errors.New("card_not_found")
 		}
 		return nil, err
 	}
@@ -79,11 +79,17 @@ func cardAdd(o orm.Ormer, itemNew cardView.New, userID int) (*domains.Card, erro
 		o = orm.NewOrm()
 	}
 
+	desk, err := cardDeskGet(o, itemNew.CardDeskID)
+	if err != nil {
+		return nil, err
+	}
+
 	item := &domains.Card{
 		Title: itemNew.Title,
 		Desk:  &domains.CardDesk{ID: itemNew.CardDeskID},
 		Order: itemNew.Order,
 		User:  &domains.User{ID: userID},
+		Board: &domains.Board{ID: desk.ID},
 	}
 
 	id, err := o.Insert(item)
@@ -149,4 +155,39 @@ func CardDelete(id, userID int) (bool, error) {
 	}
 
 	return true, nil
+}
+
+func cardReorder(o orm.Ormer, itemsReorder []cardView.Reorder, userID int) (bool, error) {
+	if o == nil {
+		o = orm.NewOrm()
+	}
+
+	for _, deskReorder := range itemsReorder {
+		desk, err := cardDeskGet(o, deskReorder.DeskID)
+		if err != nil {
+			return false, err
+		}
+
+		if desk.User.ID != userID {
+			return false, errors.New("access_denied")
+		}
+
+		for index, cardID := range deskReorder.CardsIDs {
+			num, err := o.QueryTable("card").Filter("id", cardID).Filter("user_id", userID).Update(orm.Params{
+				"desk_id": desk.ID,
+				"order":   index,
+			})
+			if err != nil || num != 1 {
+				o.Rollback()
+				return false, errors.New("reorder_card_error")
+			}
+		}
+	}
+
+	return true, nil
+}
+
+// CardReorder reorder cards
+func CardReorder(itemsReorder []cardView.Reorder, userID int) (bool, error) {
+	return cardReorder(nil, itemsReorder, userID)
 }

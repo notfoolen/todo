@@ -4,8 +4,8 @@ import { AuthGuard } from './common/auth.guard';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'cabinet', component: BoardListComponent, canActivate: [AuthGuard] },
-    { path: 'board/:code', component: BoardComponent, canActivate: [AuthGuard] },
+    { path: 'boards', component: BoardListComponent, canActivate: [AuthGuard] },
+    { path: 'boards/:code', component: BoardComponent, canActivate: [AuthGuard] },
     { path: 'signin', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
     { path: '**', component: PageNotFoundComponent },

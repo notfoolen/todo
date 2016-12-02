@@ -3,3 +3,5 @@ export * from "./error";
 export * from "./board";
 export * from "./card";
 export * from "./card.desk";
+
+export * from "./views";

@@ -2,7 +2,7 @@
     <h5 class="board-list-header"><i class="fa fa-fw fa-user"></i> Personal boards</h5>
     <div class="row">
         <div class="col-xs-4" *ngFor="let item of items">
-            <a [routerLink]="['/board', item.code]" class="card board-sm card card-inverse card-primary">
+            <a [routerLink]="['/boards', item.code]" class="card board-sm card card-inverse card-primary">
                 <div class="card-block">
                     <h4 class="card-title">{{item.title}}</h4>
                     <p class="card-text">{{item.description}}</p>

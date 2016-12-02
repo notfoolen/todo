@@ -7,13 +7,13 @@
         </div>
     </div>
 
-    <div class="row m-0 board-card-list">
-        <desk-component *ngFor="let desk of desks" [desk]="desk"></desk-component>
+    <div class="row m-0 board-card-list" [dragula]='"bag-desk"' [dragulaModel]='desks'>
+        <desk-component class="desk-container" [desk]="desk" *ngFor="let desk of desks"></desk-component>
 
-        <div class="card desk desk-new flex-xs-top">
-            <a href="javascript:void(0);" class="card-block" (click)="openModal(newDesk)">
-                Add a list...
-            </a>
+        <div class="desk-container">
+            <div class="card desk desk-new flex-xs-top">
+                <a href="javascript:void(0);" class="card-block" (click)="openModal(newDesk)">Add a desk...</a>
+            </div>
         </div>
     </div>
 

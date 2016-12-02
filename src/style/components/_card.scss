@@ -1,115 +1,104 @@
 a.card-primary {
-  @include card-variant($brand-primary, $brand-primary);
+    @include card-variant($brand-primary, $brand-primary);
 }
 
 a.card-success {
-  @include card-variant($brand-success, $brand-success);
+    @include card-variant($brand-success, $brand-success);
 }
 
 a.card-info {
-  @include card-variant($brand-info, $brand-info);
+    @include card-variant($brand-info, $brand-info);
 }
 
 a.card-warning {
-  @include card-variant($brand-warning, $brand-warning);
+    @include card-variant($brand-warning, $brand-warning);
 }
 
 .card-danger {
-  @include card-variant($brand-danger, $brand-danger);
+    @include card-variant($brand-danger, $brand-danger);
 }
 
 .board-sm {
-  min-height: 105px;
+    min-height: 105px;
 }
 
 .board-new {
-  width: 100%;
-  background: rgba($color-light, .3);
-  color: $gray-light;
-  line-height: 105px;
-  &:hover,
-  &:focus,
-  &:active {
-    background: rgba($color-light, .8);
-    text-decoration: none;
-    color: $gray;
-  }
-}
-
-.board-card-list {
-  .card {
-    width: 270px;
-    margin-right: $card-list-margin-x;
-    .card-header {
-      font-weight: bold;
-      padding-right: $card-spacer-x / 2;
-      .dropdown-toggle {
-        &:after {
-          content: none;
-        }
-      }
-      .btn-outline-secondary {
-        border: 0;
-      }
-    }
-    a.card-footer {
-      display: block;
-      border-top: 0;
-      &:hover,
-      &:focus,
-      &:active {
-        text-decoration: none;
-        background-color: darken($card-cap-bg, 5);
-      }
-    }
-  }
-}
-
-.desk {
-  .card-header {
-    border-bottom: 0;
-  }
-  .card-block {
-    display: block;
-    background: $card-cap-bg;
-    padding: .5rem;
-  }
-  .card-footer {
-    color: inherit;
-  }
-}
-
-.desk-new {
-  .card-block {
-    background: rgba(0, 0, 0, .12);
-    color: inherit;
+    width: 100%;
+    background: rgba($color-light, .3);
+    color: $gray-light;
+    line-height: 105px;
     &:hover,
     &:focus,
     &:active {
-      background: rgba(0, 0, 0, .2);
-      text-decoration: none;
+        background: rgba($color-light, .8);
+        text-decoration: none;
+        color: $gray;
     }
-  }
+}
+
+.board-card-list {
+    .card {
+        width: 270px;
+        margin-right: $card-list-margin-x;
+        .card-header {
+            cursor: pointer;
+            font-weight: bold;
+            padding-right: $card-spacer-x / 2;
+            .dropdown-toggle {
+                &:after {
+                    content: none;
+                }
+            }
+            .btn-outline-secondary {
+                border: 0;
+            }
+        }
+        a.card-footer {
+            display: block;
+            border-top: 0;
+            &:hover,
+            &:focus,
+            &:active {
+                text-decoration: none;
+                background-color: darken($card-cap-bg, 5);
+            }
+        }
+    }
 }
 
 .card-details {
-  color: inherit;
-  display: block;
-  background: $color-light;
-  padding: 6px 8px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-bottom: 6px;
-  &:last-child {
-    margin-bottom: 0;
-  }
-  &:hover,
-  &:focus,
-  &:active {
-    text-decoration: none;
-    background: darken(#fff, 5);
     color: inherit;
-  }
+    display: block;
+    background: $color-light;
+    padding: 6px 8px;
+    background-color: $color-light;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 6px;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        text-decoration: none;
+        background: darken($color-light, 3);
+        color: inherit;
+    }
+    &.gu-transit {
+        background-color: #ccc;
+        color: #ccc;
+    }
+}
+
+.bag-desk {
+    width: 270px;
+    margin: 0 5px;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
 }

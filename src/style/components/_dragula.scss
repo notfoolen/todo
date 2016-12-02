@@ -1,29 +1,30 @@
 .gu-mirror {
-  position: fixed !important;
-  margin: 0 !important;
-  z-index: 9999 !important;
-  -ms-transform: rotate(7deg);
-  /* IE 9 */
-  -webkit-transform: rotate(7deg);
-  /* Chrome, Safari, Opera */
-  transform: rotate(7deg);
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    -ms-transform: rotate(7deg);
+    /* IE 9 */
+    -webkit-transform: rotate(7deg);
+    /* Chrome, Safari, Opera */
+    transform: rotate(7deg);
 }
 
 .gu-hide {
-  display: none !important;
+    display: none !important;
 }
 
 .gu-unselectable {
-  -webkit-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
-  user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
 }
 
-.gu-transit {
-  // opacity: 0.5;
-  // -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-  // filter: alpha(opacity=50);
-  background-color: #ccc;
-  color: #ccc;
+/* .gu-transit {
+    // opacity: 0.5;
+    // -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    // filter: alpha(opacity=50);
+    background-color: #ccc;
+    color: #ccc;
 }
+*/

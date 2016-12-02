@@ -6,7 +6,7 @@ import { Observer } from 'rxjs/Observer';
 import { Subject } from 'rxjs/Subject';
 
 import { Cookie } from '../helpers';
-import { Configuration } from '../app.constants';
+import { Configuration } from '../app.config';
 import { User } from '../types';
 
 @Injectable()
@@ -57,7 +57,7 @@ export class BaseService {
     }
 
     public Post = (url: string, params?: any): Observable<Response> => {
-        var jsonParams = JSON.stringify(params);
+        let jsonParams = JSON.stringify(params);
 
         let actionUrl = this.actionUrl + url;
         return this._http.post(actionUrl, jsonParams, { headers: this.headers });// .map(res => res.json());

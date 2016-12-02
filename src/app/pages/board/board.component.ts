@@ -2,9 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
 import { CardService, BoardService } from '../../services';
-import { CardDesk, Card, Board } from '../../types';
+import { CardDesk, Card, Board, CardReorderView } from '../../types';
 
 @Component({
     selector: 'board-component',
@@ -23,7 +25,50 @@ export class BoardComponent implements OnInit {
     public desks: CardDesk[];
     public board: Board;
 
-    constructor(private activateRoute: ActivatedRoute, private _service: CardService, private _boardService: BoardService, private modalService: NgbModal) {
+    constructor(private activateRoute: ActivatedRoute,
+        private modalService: NgbModal,
+        private dragulaService: DragulaService,
+        private _service: CardService,
+        private _boardService: BoardService) {
+
+        dragulaService.dropModel.subscribe((value) => {
+            if (value[0] == 'bag-desk') {
+                this.reorderDesks(value);
+            } else if (value[0] == 'bag-card') {
+                this.reorderCards(value);
+            }
+        });
+    }
+
+    private reorderDesks(args) {
+        this._service.ReorderDesks(this.desks.map(function (item) { return item.id }))
+            .subscribe(
+            data => { },
+            error => console.log(error),
+            () => console.log('Reorder cards complete')
+            );
+    }
+
+    private reorderCards(args) {
+        let [bagName, el, target, source] = args;
+
+        let targetDeskId = +target.getAttribute('id');
+        let sourceDeskId = +source.getAttribute('id');
+
+        let targetDesk = this.desks.find(item => item.id == targetDeskId);
+        let desks = [new CardReorderView(targetDeskId, targetDesk.cards.map(function (a) { return a.id; }))];
+
+        if (targetDeskId != sourceDeskId) {
+            let sourceDesk = this.desks.find(item => item.id == sourceDeskId);
+            desks.push(new CardReorderView(sourceDeskId, sourceDesk.cards.map(function (a) { return a.id; })));
+        }
+
+        this._service.ReorderCards(desks)
+            .subscribe(
+            data => { },
+            error => console.log(error),
+            () => console.log('Reorder cards complete')
+            );
     }
 
     ngOnInit() {
@@ -41,7 +86,7 @@ export class BoardComponent implements OnInit {
                 .subscribe(
                 data => this.desks = data,
                 error => console.log(error),
-                () => console.log('Get board complete')
+                () => console.log('Get desk list complete')
                 );
 
         });

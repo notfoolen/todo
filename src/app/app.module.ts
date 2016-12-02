@@ -25,12 +25,16 @@ import {
   PageNotFoundComponent
 } from './pages';
 import {
+  SpinnerComponent
+} from './directives';
+
+import {
   DeskComponent
 } from './components';
 import { BaseService, BoardService } from './services';
 import { AuthGuard } from './common';
 import { Cookie } from './helpers';
-import { Configuration } from './app.constants';
+import { Configuration } from './app.config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 

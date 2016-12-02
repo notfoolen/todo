@@ -21,7 +21,7 @@ export class SigninComponent {
     this._service.SignIn(username, password)
       .subscribe(
       response => {
-        this.router.navigate(['/cabinet']);
+        this.router.navigate(['/boards']);
       },
       error => {
         this.error = new Error(error.status, error._body);

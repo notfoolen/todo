@@ -1,0 +1,57 @@
+.desk-container {
+    .desk {
+        background: $card-cap-bg;
+        .card-header {
+            border-bottom: 0;
+            background: inherit;
+        }
+        .card-block {
+            display: block;
+            background: inherit;
+            padding: .5rem;
+        }
+        .card-block-new {
+            padding-top: 0;
+            textarea.card-details-edit {
+                resize: none;
+                margin-bottom: .5rem;
+            }
+            .btn {
+                margin-right: .2rem;
+            }
+            .close {
+                float: none;
+            }
+        }
+        .card-footer {
+            background: inherit;
+            color: inherit;
+        }
+    }
+    .desk-new {
+        .card-block {
+            background: rgba(0, 0, 0, .12);
+            color: inherit;
+            &:hover,
+            &:focus,
+            &:active {
+                background: rgba(0, 0, 0, .2);
+                text-decoration: none;
+            }
+        }
+    }
+    &.gu-transit {
+        .desk {
+            // opacity: 0.5;
+            // -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+            // filter: alpha(opacity=50);
+            background-color: #ccc;
+            color: #ccc;
+            .card-details {
+                background-color: inherit;
+                color: inherit;
+                border-color: #ccc;
+            }
+        }
+    }
+}

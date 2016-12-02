@@ -71,8 +71,21 @@ func (c *DesksController) Delete() {
 	}
 	ok, err := repositories.CardDeskDelete(id, c.User.ID)
 	if err != nil {
-		c.Error(err)
+		c.ErrorMessage(400, err.Error())
 	} else {
 		c.Ok(ok)
 	}
+}
+
+// Reorder cards in multiple desks
+func (c *DesksController) Reorder() {
+	var ids []int
+	c.GetPost(&ids)
+
+	_, err := repositories.DeskReorder(ids, c.User.ID)
+	if err == nil {
+		c.Ok("ok")
+		return
+	}
+	c.ErrorMessage(400, err.Error())
 }

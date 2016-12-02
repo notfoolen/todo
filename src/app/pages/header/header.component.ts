@@ -20,7 +20,7 @@ export class HeaderComponent {
         this.profile = _service.profile;
         this._subscription = _service.profileChange.subscribe((value) => {
             this.profile = value;
-            this.baseLink = value ? '/cabinet' : ''; 
+            this.baseLink = value ? '/boards' : '';
         });
     }
 

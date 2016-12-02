@@ -4,24 +4,25 @@
         <div ngbDropdown class="d-inline-block pull-right">
             <button type="button" class="btn btn-sm btn-outline-secondary" id="dropdownMenu1" ngbDropdownToggle><i class="fa fa-ellipsis-h"></i></button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                <button class="dropdown-item">Action - 1</button>
-                <button class="dropdown-item">Another Action</button>
+                <a href="javascript:void(0);" class="dropdown-item" (click)="showAddArea(title)"><i class="fa fa-plus"></i> Add card</a>
                 <div class="dropdown-divider"></div>
-                <button class="dropdown-item disabled">Something else is here</button>
+                <a href="javascript:void(0);" class="dropdown-item" (click)="deleteDesk()"><i class="fa fa-trash"></i> Delete desk</a>
             </div>
         </div>
     </div>
-    <div class="card-block" [dragula]='"bag-one"' *ngIf="desk.cards && desk.cards.length > 0">
-        <a href="javascript:void(0);" class="card-details" *ngFor="let item of desk.cards">
-            {{item.title}}
-        </a>
+    <div class="card-block" [dragula]='"bag-card"' [dragulaModel]='desk.cards' data-id="{{desk.id}}">
+        <a href="javascript:void(0);" class="card-details" *ngFor="let item of desk.cards">{{item.title}}</a>
     </div>
-    <a href="javascript:void(0);" (click)="openModal(newCard)" class="card-footer">
-        Add a card...
-    </a>
+    <div class="card-block card-block-new" [hidden]="!addAreaShown">
+        <textarea #title name="card-title" [(ngModel)]="editCard.title" (keydown.enter)="addCard()" class="form-control card-details-edit"></textarea>
+        <button class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add</button>
+        <button type="button" class="btn btn-sm close" aria-label="Close" (click)="closeAddArea()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <a [hidden]="addAreaShown" href="javascript:void(0);" (click)="showAddArea(title)" class="card-footer">Add a card...</a>
 </div>
 
-<template #newCard let-c="close" let-d="dismiss">
+<!--
+<template #newCardModal let-c="close" let-d="dismiss">
     <form (submit)="addCard(title.value)">
         <div class="modal-header">
             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -41,3 +42,4 @@
         </div>
     </form>
 </template>
+-->

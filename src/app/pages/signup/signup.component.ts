@@ -19,7 +19,7 @@ export class SignupComponent {
       .subscribe(
       response => {
         console.log(response);
-        this.router.navigate(['/cabinet']);
+        this.router.navigate(['/boards']);
       },
       error => {
         console.log(error);

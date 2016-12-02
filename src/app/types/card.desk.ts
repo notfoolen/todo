@@ -4,15 +4,20 @@ import { Card } from './card';
  * CardDesk
  */
 export class CardDesk {
+    public id: number;
     public title: string;
     public dt: string;
     public order: number;
-    public items: Card[];
+    public cards: Card[] = [];
 
-    constructor(title: string, dt: string, order: number) {
-        this.title = title;
-        this.dt = dt;
-        this.order = order;
-        this.items = [];
+    constructor(data: any) {
+        this.id = data.id;
+        this.title = data.title;
+        this.dt = data.dt;
+        this.order = data.order;
+        if (data.cards && data.cards.length > 0) {
+            this.cards = data.cards;
+        }
     }
+
 }

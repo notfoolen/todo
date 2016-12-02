@@ -28,7 +28,10 @@ func init() {
 			beego.NSRouter("/boards", &api.BoardsController{}),
 
 			beego.NSRouter("/desks", &api.DesksController{}),
+			beego.NSRouter("/desks/reorder", &api.DesksController{}, "post:Reorder"),
+
 			beego.NSRouter("/cards", &api.CardsController{}),
+			beego.NSRouter("/cards/reorder", &api.CardsController{}, "post:Reorder"),
 		)
 	beego.AddNamespace(apiNs)
 }

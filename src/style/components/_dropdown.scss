@@ -1,0 +1,40 @@
+.dropdown-menu {
+    @include fadeInUpDropdown();
+    .dropdown-item {
+        font-size: 13px;
+        i {
+            padding: 0;
+            float: right;
+            width: 20px;
+            line-height: 21px;
+            text-align: center;
+            margin: 0 -8px 0 0;
+            color: #9da9b0;
+        }
+    }
+    .dropdown-header {
+        border-bottom: $dropdown-border-width solid $dropdown-border-color;
+        padding: 10px 10px;
+        border-top: $dropdown-border-width solid $dropdown-border-color;
+        &:first-child {
+            border-top: 0;
+            margin-top: -5px;
+        }
+    }
+    .dropdown-footer {
+        border-top: $dropdown-border-width solid $dropdown-border-color;
+        padding: 10px 20px;
+        margin-bottom: -10px;
+        font-size: 12px;
+        a {
+            display: inline-block;
+            padding: 0;
+            color: $link-color;
+            &:hover, &:focus, &.active {
+                background-color: inherit;
+                text-decoration: underline;
+                color: inherit;
+            }
+        }
+    }
+}

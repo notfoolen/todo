@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/notfoolen/todo/library"
 	"github.com/notfoolen/todo/models/filters"
-	"github.com/notfoolen/todo/models/views/board"
+	cardView "github.com/notfoolen/todo/models/views/card"
 	"github.com/notfoolen/todo/repositories"
 )
 
@@ -22,7 +22,7 @@ func (c *CardsController) Prepare() {
 
 // Get list user's boards
 func (c *CardsController) Get() {
-	filter := &filters.BoardFilter{
+	filter := &filters.CardFilter{
 		UserID: c.User.ID,
 	}
 
@@ -30,17 +30,17 @@ func (c *CardsController) Get() {
 
 	pg := library.GetPaginatorSimple(lastID)
 
-	items, _ := repositories.BoardList(filter, pg)
+	items, _ := repositories.CardList(filter, pg)
 
 	c.Ok(items)
 }
 
 // Post Create new board
 func (c *CardsController) Post() {
-	var boardNew board.New
-	c.GetPost(&boardNew)
+	var itemNew cardView.New
+	c.GetPost(&itemNew)
 
-	item, err := repositories.BoardAdd(boardNew, c.User.ID)
+	item, err := repositories.CardAdd(itemNew, c.User.ID)
 	if err == nil { // success
 		c.Ok(item)
 		return
@@ -50,10 +50,10 @@ func (c *CardsController) Post() {
 
 // Put update board info
 func (c *CardsController) Put() {
-	var boardNew board.New
-	c.GetPost(&boardNew)
+	var itemNew cardView.New
+	c.GetPost(&itemNew)
 
-	item, err := repositories.BoardUpdate(boardNew, c.User.ID)
+	item, err := repositories.CardUpdate(itemNew, c.User.ID)
 	if err == nil { // success
 		c.Ok(item)
 		return
@@ -67,10 +67,23 @@ func (c *CardsController) Delete() {
 	if err != nil {
 		c.ErrorArgument("id")
 	}
-	ok, err := repositories.BoardDelete(id, c.User.ID)
+	ok, err := repositories.CardDelete(id, c.User.ID)
 	if err != nil {
 		c.Error(err)
 	} else {
 		c.Ok(ok)
 	}
+}
+
+// Reorder cards in multiple desks
+func (c *CardsController) Reorder() {
+	var itemReorder []cardView.Reorder
+	c.GetPost(&itemReorder)
+
+	_, err := repositories.CardReorder(itemReorder, c.User.ID)
+	if err == nil { // success
+		c.Ok("ok")
+		return
+	}
+	c.ErrorMessage(400, err.Error())
 }
