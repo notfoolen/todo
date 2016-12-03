@@ -45,4 +45,11 @@ export class BoardService {
             });
     }
 
+    public DeleteBoard = (code: string): Observable<Boolean> => {
+        return this._baseService.Delete("boards", code)
+            .map((resp: Response) => {
+                return true;;
+            });
+    }
+
 }

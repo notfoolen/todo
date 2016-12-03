@@ -22,7 +22,7 @@ func (c *CardsController) Prepare() {
 	}
 }
 
-// Get list user's boards
+// Get list user's desks
 func (c *CardsController) Get() {
 	filter := &filters.CardFilter{
 		UserID: c.User.ID,
@@ -37,7 +37,7 @@ func (c *CardsController) Get() {
 	c.Ok(items)
 }
 
-// Post Create new board
+// Post Create new card
 func (c *CardsController) Post() {
 	var itemNew cardView.New
 	c.GetPost(&itemNew)
@@ -50,7 +50,7 @@ func (c *CardsController) Post() {
 	c.ErrorMessage(400, err.Error())
 }
 
-// Put update board info
+// Put update card info
 func (c *CardsController) Put() {
 	var itemNew cardView.New
 	c.GetPost(&itemNew)
@@ -63,7 +63,7 @@ func (c *CardsController) Put() {
 	c.ErrorMessage(400, err.Error())
 }
 
-// Delete user board
+// Delete user card
 func (c *CardsController) Delete() {
 	id, err := strconv.Atoi(c.Ctx.Input.Param(":id"))
 	if err != nil {

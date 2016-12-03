@@ -70,7 +70,7 @@ export class BaseService {
         return this._http.put(actionUrl, jsonParams, { headers: this.headers });// .map(res => res.json());
     }
 
-    public Delete = (url: string, id: number): Observable<Response> => {
+    public Delete = (url: string, id: number|string): Observable<Response> => {
         let actionUrl = this.actionUrl + url + '/' + id;
         return this._http.delete(actionUrl, { headers: this.headers });// .map(res => res.json());
     }
@@ -95,9 +95,12 @@ export class BaseService {
         if (!this.profile) {
             return this.Get("account")
                 .map((resp: Response) => {
-                    let data = resp.json();
-                    this.setProfile(new User(data.login, data.email));
-                    return this.profile;
+                    if (resp) {
+                        let data = resp.json();
+                        this.setProfile(new User(data.login, data.email));
+                        return this.profile;
+                    }
+                    return null;
                 });
         }
         return Observable.create((observer: Observer<User>) => {

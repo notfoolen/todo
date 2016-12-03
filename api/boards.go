@@ -77,11 +77,11 @@ func (c *BoardsController) Put() {
 
 // Delete user board
 func (c *BoardsController) Delete() {
-	id, err := c.GetInt("id")
-	if err != nil {
-		c.ErrorArgument("id")
+	code := c.Ctx.Input.Param(":code")
+	if code == "" {
+		c.ErrorArgument("code")
 	}
-	ok, err := repositories.BoardDelete(id, c.User.ID)
+	ok, err := repositories.BoardDelete(code, c.User.ID)
 	if err != nil {
 		c.Error(err)
 	} else {

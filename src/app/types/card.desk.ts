@@ -9,14 +9,19 @@ export class CardDesk {
     public dt: string;
     public order: number;
     public cards: Card[] = [];
+    public code: string;
 
-    constructor(data: any) {
-        this.id = data.id;
-        this.title = data.title;
-        this.dt = data.dt;
-        this.order = data.order;
-        if (data.cards && data.cards.length > 0) {
-            this.cards = data.cards;
+    constructor();
+    constructor(data: CardDesk);
+    constructor(data?: any) {
+        if (data) {
+            this.id = data.id || null;
+            this.title = data.title || null;
+            this.dt = data.dt || null;
+            this.order = data.order || null;
+            if (data.cards && data.cards.length > 0) {
+                this.cards = data.cards;
+            }
         }
     }
 

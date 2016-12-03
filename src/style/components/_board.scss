@@ -1,0 +1,9 @@
+.board-card-list-header {
+    .btn-menu {
+        border: 0;
+        font-size: 16px;
+        &:after {
+            content: none;
+        }
+    }
+}

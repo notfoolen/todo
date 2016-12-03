@@ -143,8 +143,8 @@ func BoardUpdate(boardUpdate board.New, userID int) (*domains.Board, error) {
 }
 
 // BoardDelete delete own existing board
-func BoardDelete(id, userID int) (bool, error) {
-	item, err := BoardGet(id)
+func BoardDelete(code string, userID int) (bool, error) {
+	item, err := BoardGetByCode(code)
 	if err != nil {
 		return false, err
 	}

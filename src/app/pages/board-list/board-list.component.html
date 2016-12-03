@@ -1,10 +1,10 @@
 <div class="container board-list">
-    <h5 class="board-list-header"><i class="fa fa-fw fa-user"></i> Personal boards</h5>
+    <h5 class="board-list-header mt-1 mb-2"><i class="fa fa-fw fa-user"></i> Personal boards</h5>
     <div class="row">
         <div class="col-xs-4" *ngFor="let item of items">
             <a [routerLink]="['/boards', item.code]" class="card board-sm card card-inverse card-primary">
                 <div class="card-block">
-                    <h4 class="card-title">{{item.title}}</h4>
+                    <h5 class="card-title">{{item.title}}</h5>
                     <p class="card-text">{{item.description}}</p>
                 </div>
             </a>

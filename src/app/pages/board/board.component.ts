@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
+import { Configuration } from '../../app.config';
 import { CardService, BoardService } from '../../services';
 import { CardDesk, Card, Board, CardReorderView } from '../../types';
 
@@ -25,11 +26,20 @@ export class BoardComponent implements OnInit {
     public desks: CardDesk[];
     public board: Board;
 
-    constructor(private activateRoute: ActivatedRoute,
+    public addDeskShown = false;
+
+    public eDesk: CardDesk = new CardDesk();
+
+    constructor(private _eref: ElementRef,
+        private _router: Router,
+        private activateRoute: ActivatedRoute,
         private modalService: NgbModal,
         private dragulaService: DragulaService,
+        private _config: Configuration,
         private _service: CardService,
         private _boardService: BoardService) {
+
+        _config.setBgClass("simple");
 
         dragulaService.dropModel.subscribe((value) => {
             if (value[0] == 'bag-desk') {
@@ -41,7 +51,7 @@ export class BoardComponent implements OnInit {
     }
 
     private reorderDesks(args) {
-        this._service.ReorderDesks(this.desks.map(function (item) { return item.id }))
+        this._service.ReorderDesks(this.desks.map(function(item) { return item.id }))
             .subscribe(
             data => { },
             error => console.log(error),
@@ -56,11 +66,11 @@ export class BoardComponent implements OnInit {
         let sourceDeskId = +source.getAttribute('id');
 
         let targetDesk = this.desks.find(item => item.id == targetDeskId);
-        let desks = [new CardReorderView(targetDeskId, targetDesk.cards.map(function (a) { return a.id; }))];
+        let desks = [new CardReorderView(targetDeskId, targetDesk.cards.map(function(a) { return a.id; }))];
 
         if (targetDeskId != sourceDeskId) {
             let sourceDesk = this.desks.find(item => item.id == sourceDeskId);
-            desks.push(new CardReorderView(sourceDeskId, sourceDesk.cards.map(function (a) { return a.id; })));
+            desks.push(new CardReorderView(sourceDeskId, sourceDesk.cards.map(function(a) { return a.id; })));
         }
 
         this._service.ReorderCards(desks)
@@ -92,6 +102,19 @@ export class BoardComponent implements OnInit {
         });
     }
 
+    public closeAddDeskArea(): void {
+        this.addDeskShown = false;
+    }
+
+    public showAddDeskArea(el?: any): void {
+        this.addDeskShown = true;
+        if (el) {
+            setTimeout(_ =>
+                el.focus()
+            );
+        }
+    }
+
     private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
             return 'by pressing ESC';
@@ -111,17 +134,25 @@ export class BoardComponent implements OnInit {
         });
     }
 
-    addDesk(title: string) {
-        this.modalLoading = true;
-        this._service.AddDesk(title, this.boardCode)
+    addDesk() {
+        if (!this.eDesk.title) {
+            return;
+        }
+        this.eDesk.order = 0;
+
+        if (this.desks.length > 0) {
+            this.eDesk.order = this.desks[this.desks.length - 1].order + 1;
+        }
+        this._service.AddDesk(this.eDesk, this.boardCode)
             .subscribe(
             data => this.desks.push(data),
             error => console.log(error),
             () => {
                 this.modalLoading = false;
-                this.modalInstance.close("Ok");
-            }
-            );
+                // this.modalInstance.close("Ok");
+                this.eDesk = new CardDesk();
+            },
+        );
     }
 
     deleteDesk(id: number) {
@@ -138,7 +169,21 @@ export class BoardComponent implements OnInit {
             error => console.log(error),
             () => {
                 this.modalLoading = false;
-                this.modalInstance.close("Ok");
+                // this.modalInstance.close("Ok");
+            }
+            );
+    }
+
+    deleteBoard() {
+        this._boardService.DeleteBoard(this.boardCode)
+            .subscribe(
+            data => {
+                this.board = null;
+                this._router.navigate(['/boards']);
+            },
+            error => console.log(error),
+            () => {
+                this.modalLoading = false;
             }
             );
     }

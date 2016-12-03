@@ -10,10 +10,7 @@ import { CardDesk, Card, Board } from '../../types';
 @Component({
     selector: 'desk-component',
     templateUrl: 'desk.component.html',
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        '(document:click)': 'onClick($event)',
-    },
+    encapsulation: ViewEncapsulation.None
 })
 
 export class DeskComponent {
@@ -39,12 +36,6 @@ export class DeskComponent {
 
     }
 
-    onClick(event) {
-        if (!this._eref.nativeElement.contains(event.target)) {
-            this.closeAddArea();
-        }
-    }
-
     private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
             return 'by pressing ESC';
@@ -54,6 +45,7 @@ export class DeskComponent {
             return `with: ${reason}`;
         }
     }
+
 
     public closeAddArea(): void {
         this.addAreaShown = false;
@@ -82,6 +74,9 @@ export class DeskComponent {
     }
 
     public addCard() {
+        if (!this.eCard.title) {
+            return;
+        }
         this.loading = true;
         this.eCard.deskId = this.desk.id;
         this.eCard.order = 0;

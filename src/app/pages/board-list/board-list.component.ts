@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+import { Configuration } from '../../app.config';
 import { BoardService } from '../../services';
 import { Board } from '../../types';
 
@@ -15,9 +18,12 @@ export class BoardListComponent implements OnInit {
 
     public items: Board[];
     closeResult: string;
-    private modalInstance: NgbModalRef; 
+    private modalInstance: NgbModalRef;
 
-    constructor(private _service: BoardService, private modalService: NgbModal) {
+    constructor(private modalService: NgbModal,
+        private _config: Configuration,
+        private _service: BoardService) {
+        _config.setBgClass("simple");
     }
 
     ngOnInit() {

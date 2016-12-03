@@ -37,6 +37,7 @@ import { Cookie } from './helpers';
 import { Configuration } from './app.config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { ClickOutsideModule } from 'ng2-click-outside';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -63,7 +64,8 @@ type StoreType = {
     routing,
     HttpModule,
     NgbModule.forRoot(),
-    DragulaModule
+    DragulaModule,
+    ClickOutsideModule
   ],
   declarations: [
     AppComponent,

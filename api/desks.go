@@ -22,7 +22,7 @@ func (c *DesksController) Prepare() {
 	}
 }
 
-// Get list user's boards
+// Get list user's desks
 func (c *DesksController) Get() {
 	code := c.GetString("code") // c.Ctx.Input.Param(":code")
 	if code == "" {
@@ -42,7 +42,7 @@ func (c *DesksController) Get() {
 	c.Ok(items)
 }
 
-// Post Create new board
+// Post Create new desk
 func (c *DesksController) Post() {
 	var itemNew desk.New
 	c.GetPost(&itemNew)
@@ -55,7 +55,7 @@ func (c *DesksController) Post() {
 	c.ErrorMessage(400, err.Error())
 }
 
-// Put update board info
+// Put update desk info
 func (c *DesksController) Put() {
 	var itemNew desk.New
 	c.GetPost(&itemNew)
@@ -68,7 +68,7 @@ func (c *DesksController) Put() {
 	c.ErrorMessage(400, err.Error())
 }
 
-// Delete user board
+// Delete user desk
 func (c *DesksController) Delete() {
 	id, err := strconv.Atoi(c.Ctx.Input.Param(":id"))
 	if err != nil {

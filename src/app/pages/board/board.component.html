@@ -1,9 +1,16 @@
 <div class="container container-fxy container-top pb-3">
-    <div class="row m-0 mb-1 px-1">
-        <div *ngIf="board">
+    <div class="row m-0 mb-1 board-card-list-header">
+        <div class="col-xs-12" *ngIf="board">
             <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">{{board.title}}</a>
             <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-star"></i></a>
             <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-lock"></i> private</a>
+
+            <div ngbDropdown class="d-inline-block pull-right">
+                <button type="button" class="btn btn-sm btn-outline-primary btn-menu" ngbDropdownToggle><i class="fa fa-ellipsis-h"></i></button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a href="javascript:void(0);" class="dropdown-item" (click)="deleteBoard()"><i class="fa fa-trash"></i> Delete board</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -11,14 +18,25 @@
         <desk-component class="desk-container" (deleteDesk)="deleteDesk($event)" [desk]="desk" *ngFor="let desk of desks"></desk-component>
 
         <div class="desk-container">
-            <div class="card desk desk-new flex-xs-top">
-                <a href="javascript:void(0);" class="card-block" (click)="openModal(newDesk)">Add a desk...</a>
+            <div class="card desk desk-new flex-xs-top" (clickOutside)="closeAddDeskArea()">
+                <div class="card-block" [ngClass]="{nactive: !addDeskShown}">
+                    <div class="desk-new-title" (click)="showAddDeskArea(desk_title)" [hidden]="addDeskShown">Add a desk...</div>
+                    <form class="desk-new-form" [hidden]="!addDeskShown">
+                        <input #desk_title name="desk-title" [(ngModel)]="eDesk.title" class="form-control desk-new-input-title" placeholder="Add a desk..."
+                        />
+                        <div class="desk-new-actions">
+                            <button class="btn btn-sm btn-success" (click)="addDesk()"><i class="fa fa-save"></i> Save</button>
+                            <button type="button" class="btn btn-sm close" aria-label="Close" (click)="closeAddDeskArea()"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
 </div>
 
+<!-- 
 <template #newDesk let-c="close" let-d="dismiss">
     <form (submit)="addDesk(title.value)">
         <div class="modal-header">
@@ -39,3 +57,5 @@
         </div>
     </form>
 </template>
+
+-->

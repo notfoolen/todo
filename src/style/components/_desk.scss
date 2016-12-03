@@ -17,7 +17,7 @@
                 margin-bottom: .5rem;
             }
             .btn {
-                margin-right: .2rem;
+                margin-right: .5rem;
             }
             .close {
                 float: none;
@@ -29,14 +29,45 @@
         }
     }
     .desk-new {
+        cursor: pointer;
+        -webkit-transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
+        transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
+        color: #fff;
         .card-block {
-            background: rgba(0, 0, 0, .12);
-            color: inherit;
-            &:hover,
-            &:focus,
-            &:active {
-                background: rgba(0, 0, 0, .2);
-                text-decoration: none;
+            &.nactive {
+                background: rgba(0, 0, 0, .12);
+                color: inherit;
+                &:hover,
+                &:focus,
+                &:active {
+                    background: rgba(0, 0, 0, .2);
+                    text-decoration: none;
+                }
+            }
+        }
+        .desk-new-title {
+            padding: .4rem;
+            padding-left: .5rem;
+            color: rgba(255, 255, 255, .9);
+            -webkit-transition: color 85ms ease-in;
+            transition: color 85ms ease-in;
+        }
+        .desk-new-form {
+            .desk-new-input-title {
+                margin-bottom: .5rem;
+                padding: .5rem;
+                -webkit-transition: margin 85ms ease-in, background 85ms ease-in;
+                transition: margin 85ms ease-in, background 85ms ease-in;
+            }
+            .desk-new-actions {
+                -webkit-transition: margin 85ms ease-in, height 85ms ease-in;
+                transition: margin 85ms ease-in, height 85ms ease-in;
+            }
+            .btn {
+                margin-right: .5rem;
+            }
+            .close {
+                float: none;
             }
         }
     }

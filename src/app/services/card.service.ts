@@ -40,11 +40,10 @@ export class CardService {
             });
     }
 
-    public DeleteCard = (id: number): Observable<Card> => {
+    public DeleteCard = (id: number): Observable<Boolean> => {
         return this._baseService.Delete("cards", id)
             .map((resp: Response) => {
-                let data = resp.json();
-                return new Card(data);
+                return true;
             });
     }
 
@@ -70,12 +69,9 @@ export class CardService {
             });
     }
 
-    public AddDesk = (title: string, code: string): Observable<CardDesk> => {
-        let params = {
-            title: title,
-            code: code,
-        };
-        return this._baseService.Post("desks", params)
+    public AddDesk = (item: CardDesk, code: string): Observable<CardDesk> => {
+        item.code = code;
+        return this._baseService.Post("desks", item)
             .map((resp: Response) => {
                 let data = resp.json();
                 return new CardDesk(data);
