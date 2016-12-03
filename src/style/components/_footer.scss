@@ -1,13 +1,21 @@
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 2.5rem 0;
-  color: #999;
-  text-align: center;
-  background-color: #f9f9f9;
-  border-top: .05rem solid #e5e5e5;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1.2rem 0;
+    border-top: .05rem solid rgba(0, 0, 0, .20);
+    background: rgba(0, 0, 0, .15);
+    color: rgba(255, 255, 255, .6);
+    text-align: center;
     p:last-child {
         margin-bottom: 0;
+    }
+    a {
+        color: rgba(255, 255, 255, .8);
+        &:focus,
+        &:hover,
+        &:active {
+            color: $color-light;
+        }
     }
 }

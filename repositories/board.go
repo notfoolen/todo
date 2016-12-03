@@ -18,7 +18,7 @@ func boardList(o orm.Ormer, filter *filters.BoardFilter, pg *library.Paginator) 
 	if o == nil {
 		o = orm.NewOrm()
 	}
-	qs := o.QueryTable("board").OrderBy("dt")
+	qs := o.QueryTable("board").OrderBy("dt").Filter("deleted", false)
 
 	if filter != nil {
 		if filter.ID > 0 {
@@ -71,7 +71,7 @@ func BoardGet(id int) (*domains.Board, error) {
 		ID: id,
 	}
 	list, err := boardList(nil, filter, nil)
-	if err != nil {
+	if err != nil || len(list) == 0 {
 		return nil, errors.New("board_not_found")
 	}
 	return list[0], nil
@@ -155,9 +155,9 @@ func BoardDelete(id, userID int) (bool, error) {
 
 	o := orm.NewOrm()
 	num, err := o.QueryTable("board").Filter("id", item.ID).Update(orm.Params{
-		"deleted":      true,
-		"deleted_dt":   time.Now(),
-		"deleted_user": &domains.User{ID: userID},
+		"deleted":         true,
+		"deleted_dt":      time.Now(),
+		"deleted_user_id": userID,
 	})
 
 	if err != nil || num != 1 {

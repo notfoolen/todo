@@ -8,9 +8,9 @@ type Card struct {
 	Dt          time.Time `orm:"auto_now_add;type(datetime)"json:"dt"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
-	User        *User     `orm:"rel(fk);on_delete(do_nothing)"json:"user"`
-	Board       *Board    `orm:"rel(fk);on_delete(do_nothing)"json:"board"`
-	Desk        *CardDesk `orm:"rel(fk);on_delete(do_nothing)"json:"desk"`
+	User        *User     `orm:"rel(fk);on_delete(do_nothing)"json:"-"`
+	Board       *Board    `orm:"rel(fk);on_delete(do_nothing)"json:"-"`
+	Desk        *CardDesk `orm:"rel(fk);on_delete(do_nothing)"json:"-"`
 
 	Deleted     bool      `json:"-"`
 	DeletedDt   time.Time `orm:"null;type(datetime)"json:"-"`

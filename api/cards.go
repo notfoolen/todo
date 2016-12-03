@@ -1,6 +1,8 @@
 package api
 
 import (
+	"strconv"
+
 	"github.com/notfoolen/todo/library"
 	"github.com/notfoolen/todo/models/filters"
 	cardView "github.com/notfoolen/todo/models/views/card"
@@ -63,7 +65,7 @@ func (c *CardsController) Put() {
 
 // Delete user board
 func (c *CardsController) Delete() {
-	id, err := c.GetInt("id")
+	id, err := strconv.Atoi(c.Ctx.Input.Param(":id"))
 	if err != nil {
 		c.ErrorArgument("id")
 	}

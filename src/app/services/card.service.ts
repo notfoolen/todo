@@ -70,9 +70,10 @@ export class CardService {
             });
     }
 
-    public AddDesk = (title: string): Observable<CardDesk> => {
+    public AddDesk = (title: string, code: string): Observable<CardDesk> => {
         let params = {
-            title: title
+            title: title,
+            code: code,
         };
         return this._baseService.Post("desks", params)
             .map((resp: Response) => {

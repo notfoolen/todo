@@ -19,7 +19,7 @@ func cardList(o orm.Ormer, filter *filters.CardFilter, pg *library.Paginator) ([
 	if o == nil {
 		o = orm.NewOrm()
 	}
-	qs := o.QueryTable("card").OrderBy("order")
+	qs := o.QueryTable("card").OrderBy("order").Filter("deleted", false)
 
 	if filter != nil {
 		if filter.ID > 0 {
@@ -79,14 +79,14 @@ func cardAdd(o orm.Ormer, itemNew cardView.New, userID int) (*domains.Card, erro
 		o = orm.NewOrm()
 	}
 
-	desk, err := cardDeskGet(o, itemNew.CardDeskID)
+	desk, err := cardDeskGet(o, itemNew.DeskID)
 	if err != nil {
 		return nil, err
 	}
 
 	item := &domains.Card{
 		Title: itemNew.Title,
-		Desk:  &domains.CardDesk{ID: itemNew.CardDeskID},
+		Desk:  &domains.CardDesk{ID: itemNew.DeskID},
 		Order: itemNew.Order,
 		User:  &domains.User{ID: userID},
 		Board: &domains.Board{ID: desk.ID},
@@ -119,7 +119,7 @@ func CardUpdate(itemUpdate cardView.New, userID int) (*domains.Card, error) {
 
 	item.Title = itemUpdate.Title
 	item.Order = itemUpdate.Order
-	item.Desk = &domains.CardDesk{ID: itemUpdate.CardDeskID}
+	item.Desk = &domains.CardDesk{ID: itemUpdate.DeskID}
 
 	o := orm.NewOrm()
 	if num, err := o.Update(item); num != 1 || err != nil {
@@ -134,7 +134,7 @@ func CardUpdate(itemUpdate cardView.New, userID int) (*domains.Card, error) {
 
 // CardDelete delete own existing card desk
 func CardDelete(id, userID int) (bool, error) {
-	item, err := BoardGet(id)
+	item, err := CardGet(id)
 	if err != nil {
 		return false, err
 	}
@@ -145,9 +145,9 @@ func CardDelete(id, userID int) (bool, error) {
 
 	o := orm.NewOrm()
 	num, err := o.QueryTable("card").Filter("id", item.ID).Update(orm.Params{
-		"deleted":      true,
-		"deleted_dt":   time.Now(),
-		"deleted_user": &domains.User{ID: userID},
+		"deleted":         true,
+		"deleted_dt":      time.Now(),
+		"deleted_user_id": userID,
 	})
 
 	if err != nil || num != 1 {

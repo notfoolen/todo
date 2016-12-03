@@ -1,8 +1,14 @@
-.container-fp {
-  padding: $header-margin / 2;
+.container-fx {
   width: 100%;
 }
 
-.container-top {
-  margin-top: -$header-margin;
+.container-fy {
+  height: 100%;
 }
+
+.container-fxy {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+

@@ -1,75 +1,31 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
-// import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth, JwtHelper } from 'angular2-jwt';
+
+import { Configuration } from '../../app.config';
 
 @Component({
     selector: 'home-component',
-    templateUrl: 'home.component.html',
-    providers: [
-        /*
-        AuthHttp,
-        provideAuth({
-            headerName: 'Authorization',
-            headerPrefix: 'bearer',
-            tokenName: 'token',
-            tokenGetter: (() => localStorage.getItem('id_token')),
-            globalHeaders: [{ 'Content-Type': 'application/json' }],
-            noJwtError: true
-        })
-        */
-    ]
+    templateUrl: 'home.component.html'
 })
 
 export class HomeComponent {
 
-    public message: string;
-    jwt: string;
-    decodedJwt: string;
-    response: string;
-    api: string;
-    // jwtHelper: JwtHelper = new JwtHelper();
+    public banner: string;
 
-    constructor(public router: Router, public http: Http/*, public authHttp: AuthHttp*/) {
-        this.message = "Hello from HomeComponent constructor";
+    constructor(public router: Router, public http: Http, private _config: Configuration) {
+        _config.setBgClass(_config.COLORS.BLUE);
 
-        // this.jwt = localStorage.getItem('id_token');
-        // this.decodedJwt = this.jwt && this.jwtHelper.decodeToken(this.jwt);
-    }
+        let banners = [
+            '/assets/img/home-todo-1.jpg',
+            '/assets/img/home-todo-2.jpg',
+            '/assets/img/home-todo-3.jpg',
+            '/assets/img/home-todo-4.jpg',
+            '/assets/img/home-todo-5.jpg',
+        ];
 
-    logout() {
-        localStorage.removeItem('id_token');
-        this.router.navigate(['login']);
-    }
-
-    callAnonymousApi() {
-        this._callApi('Anonymous', 'http://localhost:3001/api/random-quote');
-    }
-
-    callSecuredApi() {
-        this._callApi('Secured', 'http://localhost:3001/api/protected/random-quote');
-    }
-
-    _callApi(type: string, url: string) {
-        this.response = null;
-        if (type === 'Anonymous') {
-            // For non-protected routes, just use Http
-            this.http.get(url)
-                .subscribe(
-                    response => this.response = response.text(),
-                    error => this.response = error.text()
-                );
-        }
-        /*
-        if (type === 'Secured') {
-            // For protected routes, use AuthHttp1
-            this.authHttp.get(url)
-                .subscribe(
-                    response => this.response = response.text(),
-                    error => this.response = error.text()
-                );
-        }
-        */
+        let rnd = Math.floor(Math.random() * 5);  
+        this.banner = banners[rnd];
     }
 
 }

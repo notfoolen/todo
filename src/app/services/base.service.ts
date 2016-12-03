@@ -71,7 +71,7 @@ export class BaseService {
     }
 
     public Delete = (url: string, id: number): Observable<Response> => {
-        let actionUrl = this.actionUrl + url + '/id';
+        let actionUrl = this.actionUrl + url + '/' + id;
         return this._http.delete(actionUrl, { headers: this.headers });// .map(res => res.json());
     }
 

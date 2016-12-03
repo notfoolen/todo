@@ -1,8 +1,10 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <p>{{message}}</p>
-        </div>
+<div class="container container-fy text-xs-center home-container">
+    <div class="home-cover">
+        <h1 class="home-cover-heading"><i>todo app</i></h1>
+        <p class="lead">Open-source kanban board application</p>
+        <p class="lead">
+            <a [routerLink]="['/signin']" class="btn btn-lg btn-secondary">Sign in</a>
+        </p>
+        <img [src]="banner" class="img-fluid" alt="banner">
     </div>
 </div>
-

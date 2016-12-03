@@ -1,6 +1,8 @@
 package api
 
 import (
+	"strconv"
+
 	"github.com/notfoolen/todo/library"
 	"github.com/notfoolen/todo/models/filters"
 	desk "github.com/notfoolen/todo/models/views/carddesk"
@@ -22,7 +24,10 @@ func (c *DesksController) Prepare() {
 
 // Get list user's boards
 func (c *DesksController) Get() {
-	code := c.Ctx.Input.Param(":code")
+	code := c.GetString("code") // c.Ctx.Input.Param(":code")
+	if code == "" {
+		c.ErrorArgument("code")
+	}
 	filter := &filters.CardDeskFilter{
 		UserID:    c.User.ID,
 		BoardCode: code,
@@ -65,10 +70,11 @@ func (c *DesksController) Put() {
 
 // Delete user board
 func (c *DesksController) Delete() {
-	id, err := c.GetInt("id")
+	id, err := strconv.Atoi(c.Ctx.Input.Param(":id"))
 	if err != nil {
 		c.ErrorArgument("id")
 	}
+
 	ok, err := repositories.CardDeskDelete(id, c.User.ID)
 	if err != nil {
 		c.ErrorMessage(400, err.Error())

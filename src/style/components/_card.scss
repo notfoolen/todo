@@ -37,7 +37,11 @@ a.card-warning {
 }
 
 .board-card-list {
+    height: 100%;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
     .card {
         width: 270px;
         margin-right: $card-list-margin-x;
@@ -77,6 +81,20 @@ a.card-warning {
     border-radius: 3px;
     cursor: pointer;
     margin-bottom: 6px;
+
+    .card-details-delete {
+        display: none;
+        border: 0;
+        margin-top: -1px;
+        margin-right: -2px;
+        &:after {
+            content: none;
+        }
+        &:active, &:focus, &.open {
+            display: block;
+        }
+    }
+
     &:last-child {
         margin-bottom: 0;
     }
@@ -86,6 +104,9 @@ a.card-warning {
         text-decoration: none;
         background: darken($color-light, 3);
         color: inherit;
+        .card-details-delete {
+            display: block;
+        }
     }
     &.gu-transit {
         background-color: #ccc;

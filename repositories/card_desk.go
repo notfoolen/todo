@@ -21,7 +21,7 @@ func cardDeskList(o orm.Ormer, filter *filters.CardDeskFilter, pg *library.Pagin
 	if o == nil {
 		o = orm.NewOrm()
 	}
-	qs := o.QueryTable("card_desk").OrderBy("order")
+	qs := o.QueryTable("card_desk").OrderBy("order").Filter("deleted", false)
 
 	if filter != nil {
 		if filter.ID > 0 {
@@ -107,13 +107,22 @@ func CardDeskGet(id int) (*domains.CardDesk, error) {
 }
 
 func cardDeskAdd(o orm.Ormer, itemNew desk.New, userID int) (*domains.CardDesk, error) {
+	board, err := BoardGetByCode(itemNew.BoardCode)
+	if err != nil {
+		return nil, err
+	}
+
+	if board.User.ID != userID {
+		return nil, errors.New("access_denied")
+	}
+
 	if o == nil {
 		o = orm.NewOrm()
 	}
 
 	item := &domains.CardDesk{
 		Title: itemNew.Title,
-		Board: &domains.Board{ID: itemNew.BoardID},
+		Board: &domains.Board{ID: board.ID},
 		Order: itemNew.Order,
 		User:  &domains.User{ID: userID},
 	}
@@ -134,6 +143,15 @@ func CardDeskAdd(itemNew desk.New, userID int) (*domains.CardDesk, error) {
 
 // CardDeskUpdate update own existing card desk
 func CardDeskUpdate(itemUpdate desk.New, userID int) (*domains.CardDesk, error) {
+	board, err := BoardGetByCode(itemUpdate.BoardCode)
+	if err != nil {
+		return nil, err
+	}
+
+	if board.User.ID != userID {
+		return nil, errors.New("access_denied")
+	}
+
 	item, err := CardDeskGet(itemUpdate.ID)
 	if err != nil {
 		return nil, err
@@ -145,7 +163,7 @@ func CardDeskUpdate(itemUpdate desk.New, userID int) (*domains.CardDesk, error) 
 
 	item.Title = itemUpdate.Title
 	item.Order = itemUpdate.Order
-	item.Board = &domains.Board{ID: itemUpdate.BoardID}
+	item.Board = &domains.Board{ID: board.ID}
 
 	o := orm.NewOrm()
 	if num, err := o.Update(item); num != 1 || err != nil {
@@ -160,7 +178,7 @@ func CardDeskUpdate(itemUpdate desk.New, userID int) (*domains.CardDesk, error) 
 
 // CardDeskDelete delete own existing card desk
 func CardDeskDelete(id, userID int) (bool, error) {
-	item, err := BoardGet(id)
+	item, err := CardDeskGet(id)
 	if err != nil {
 		return false, err
 	}
@@ -171,9 +189,9 @@ func CardDeskDelete(id, userID int) (bool, error) {
 
 	o := orm.NewOrm()
 	num, err := o.QueryTable("card_desk").Filter("id", item.ID).Update(orm.Params{
-		"deleted":      true,
-		"deleted_dt":   time.Now(),
-		"deleted_user": &domains.User{ID: userID},
+		"deleted":         true,
+		"deleted_dt":      time.Now(),
+		"deleted_user_id": userID,
 	})
 
 	if err != nil || num != 1 {

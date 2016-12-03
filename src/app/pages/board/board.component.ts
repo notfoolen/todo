@@ -113,9 +113,28 @@ export class BoardComponent implements OnInit {
 
     addDesk(title: string) {
         this.modalLoading = true;
-        this._service.AddDesk(title)
+        this._service.AddDesk(title, this.boardCode)
             .subscribe(
             data => this.desks.push(data),
+            error => console.log(error),
+            () => {
+                this.modalLoading = false;
+                this.modalInstance.close("Ok");
+            }
+            );
+    }
+
+    deleteDesk(id: number) {
+        let deleteDesk = this.desks.find(item => item.id == id);
+        this.modalLoading = true;
+        this._service.DeleteDesk(id)
+            .subscribe(
+            data => {
+                var index = this.desks.indexOf(deleteDesk, 0);
+                if (index > -1) {
+                    this.desks.splice(index, 1);
+                }
+            },
             error => console.log(error),
             () => {
                 this.modalLoading = false;

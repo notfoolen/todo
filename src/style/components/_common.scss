@@ -1,4 +1,35 @@
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
+}
+
+.app-container {
+    height: 100%;
+    width: 100%;
+    padding-top: $header-spacer;
+    padding-bottom: $footer-spacer;
+
+    &.simple {
+        .masthead {
+            background-color: $brand-primary;
+            background: linear-gradient(135deg, $brand-primary, lighten($brand-primary, 5));
+        }
+        .footer {
+            background-color: #f9f9f9;
+            border-top: .05rem solid #e5e5e5;
+            color: #999;
+            a {
+                color: $brand-primary;
+            }
+        }
+    }
+    &.dark {
+        background-color: $gray-dark;
+        color: $color-light;
+    }
+    &.blue {
+        background-color: $brand-primary;
+        color: $color-light;
+    }
 }

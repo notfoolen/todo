@@ -1,5 +1,5 @@
-<div class="container container-fp container-top">
-    <div class="row m-0 mb-1">
+<div class="container container-fxy container-top pb-3">
+    <div class="row m-0 mb-1 px-1">
         <div *ngIf="board">
             <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">{{board.title}}</a>
             <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-star"></i></a>
@@ -7,8 +7,8 @@
         </div>
     </div>
 
-    <div class="row m-0 board-card-list flex-nw" [dragula]='"bag-desk"' [dragulaModel]='desks'>
-        <desk-component class="desk-container" [desk]="desk" *ngFor="let desk of desks"></desk-component>
+    <div class="row m-0 board-card-list flex-nw px-1" [dragula]='"bag-desk"' [dragulaModel]='desks'>
+        <desk-component class="desk-container" (deleteDesk)="deleteDesk($event)" [desk]="desk" *ngFor="let desk of desks"></desk-component>
 
         <div class="desk-container">
             <div class="card desk desk-new flex-xs-top">
