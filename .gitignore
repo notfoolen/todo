@@ -2,6 +2,7 @@ node_modules/
 bower_components/
 *.log*
 *.exe*
+*.elf*
 static
 .tmp
 tmp/
