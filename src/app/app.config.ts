@@ -13,6 +13,10 @@ export class Configuration {
 
     public bgClass: string = "simple";
     public bgClassChange: Subject<string> = new Subject<string>();
+
+    public bgColor: string = "";
+    public bgColorChange: Subject<string> = new Subject<string>();
+
     public COLORS = {
         BLUE: 'blue',
         ORANGE: 'orange',
@@ -23,6 +27,7 @@ export class Configuration {
         SALAD: 'salad',
         TURQ: 'turq',
         GRAY: 'gray',
+        LIGHT: 'light',
     };
 
     constructor(private dragulaService: DragulaService) {
@@ -38,5 +43,10 @@ export class Configuration {
     public setBgClass = (_class: string) => {
         this.bgClass = _class;
         this.bgClassChange.next(_class);
+    }
+
+    public setBgColor = (_color: string) => {
+        this.bgColor = _color;
+        this.bgColorChange.next(_color);
     }
 }

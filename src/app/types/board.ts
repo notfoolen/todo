@@ -6,11 +6,22 @@ export class Board {
     public description: string;
     public dt: string;
     public code: string;
+    public color: string;
 
-    constructor(title: string, description: string, dt: string, code: string) {
-        this.title = title;
-        this.description = description;
-        this.dt = dt;
-        this.code = code;
+    constructor();
+    constructor(data: Board); 
+    constructor(data?: any) {
+        if (data) {
+            this.title = data.title || null;
+            this.dt = data.dt || null;
+            this.code = data.code || null;
+            if (data.color) {
+                if (data.color.rgb) {
+                    this.color = data.color.rgb || null;
+                } else {
+                    this.color = data.color || null;
+                }
+            }
+        }
     }
 }

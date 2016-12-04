@@ -37,7 +37,7 @@ func boardList(o orm.Ormer, filter *filters.BoardFilter, pg *library.Paginator) 
 		qs = pg.Calc(qs)
 	}
 
-	_, err := qs.All(&items)
+	_, err := qs.RelatedSel("color").All(&items)
 
 	return items, err
 }
@@ -48,25 +48,9 @@ func BoardList(filter *filters.BoardFilter, pg *library.Paginator) ([]*domains.B
 }
 
 func boardGet(o orm.Ormer, id int) (*domains.Board, error) {
-	item := domains.Board{ID: id}
-
 	if o == nil {
 		o = orm.NewOrm()
 	}
-	err := o.Read(&item)
-
-	if err != nil {
-		if err == orm.ErrNoRows {
-			return nil, errors.New("board_not_found")
-		}
-		return nil, err
-	}
-
-	return &item, err
-}
-
-// BoardGet return Board by id
-func BoardGet(id int) (*domains.Board, error) {
 	filter := &filters.BoardFilter{
 		ID: id,
 	}
@@ -75,6 +59,11 @@ func BoardGet(id int) (*domains.Board, error) {
 		return nil, errors.New("board_not_found")
 	}
 	return list[0], nil
+}
+
+// BoardGet return Board by id
+func BoardGet(id int) (*domains.Board, error) {
+	return boardGet(nil, id)
 }
 
 // BoardGetByCode return Board by id
@@ -96,11 +85,22 @@ func boardAdd(o orm.Ormer, boardNew board.New, userID int) (*domains.Board, erro
 
 	code := functions.GenerateRandomString(25, true)
 
+	colorID := boardNew.ColorID
+	if colorID < 1 {
+		colorList, err := colorList(o)
+		if err != nil {
+			return nil, err
+		}
+		rand := functions.RandInt(0, len(colorList))
+		colorID = colorList[rand].ID
+	}
+
 	item := &domains.Board{
 		Title:       boardNew.Title,
 		Description: boardNew.Description,
 		User:        &domains.User{ID: userID},
 		Code:        code,
+		Color:       &domains.Color{ID: colorID},
 	}
 
 	id, err := o.Insert(item)

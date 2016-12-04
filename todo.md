@@ -1,5 +1,6 @@
 ### todo list for todo app
 
+- [ ] header background ease-out;
 - [ ] horizontal touch scroll on board page;
 - [ ] crud for card;
 - [ ] crud for desk;

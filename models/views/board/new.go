@@ -5,4 +5,5 @@ type New struct {
 	ID          int    `json:"id"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
+	ColorID     int    `json:"colorId"`
 }

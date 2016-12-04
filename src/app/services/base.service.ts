@@ -123,7 +123,7 @@ export class BaseService {
         };
         return this.Post("signup", params)
             .map((resp: Response) => {
-                let data = resp.json().data;
+                let data = resp.json();
                 this.setProfile(new User(data.login, data.email));
                 return true;
             });

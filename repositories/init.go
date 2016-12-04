@@ -7,8 +7,8 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-// registration database connection and domains
-func init() {
+// Register database
+func Register() {
 	sqlHost := beego.AppConfig.String("sqlhost")
 	sqlUser := beego.AppConfig.String("sqluser")
 	sqlPass := beego.AppConfig.String("sqlpass")
@@ -21,6 +21,7 @@ func init() {
 	// domains user
 	orm.RegisterModel(new(domains.User))
 
+	orm.RegisterModel(new(domains.Color))
 	orm.RegisterModel(new(domains.Board))
 	orm.RegisterModel(new(domains.CardDesk), new(domains.Card))
 

@@ -2,17 +2,21 @@
   <form class="form-signup" (submit)="signup(username.value, email.value, password.value, repassword.value)">
     <h3 class="form-signup-heading">Sign up</h3>
 
-    <label for="username" class="sr-only">Username</label>
-    <input type="text" #username class="form-control username" id="username" placeholder="Username" autofocus>
+    <div class="form-group" [ngClass]="{'has-danger': error}">
+      <label for="username" class="sr-only">Username</label>
+      <input type="text" #username class="form-control username form-control-danger" id="username" placeholder="Username" autofocus>
 
-    <label for="email" class="sr-only">Email</label>
-    <input type="email" #email class="form-control email" id="email" placeholder="Email" required>
+      <label for="email" class="sr-only">Email</label>
+      <input type="email" #email class="form-control email form-control-danger" id="email" placeholder="Email" required>
 
-    <label for="password" class="sr-only">Password</label>
-    <input type="password" #password class="form-control password" id="password" placeholder="Password" required>
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" #password class="form-control password form-control-danger" id="password" placeholder="Password" required>
 
-    <label for="repassword" class="sr-only">Repassword</label>
-    <input type="password" #repassword class="form-control repassword" id="repassword" placeholder="Retype password" required>
+      <label for="repassword" class="sr-only">Repassword</label>
+      <input type="password" #repassword class="form-control repassword form-control-danger" id="repassword" placeholder="Retype password" required>
+
+      <div class="form-control-feedback" *ngIf="error">{{error.message}}</div>
+    </div>
 
     <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user-plus"></i> Submit</button>
 

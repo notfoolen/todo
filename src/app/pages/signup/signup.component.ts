@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { Configuration } from '../../app.config';
 import { contentHeaders } from '../../common/headers';
 import { BaseService } from '../../services';
+import { Error } from '../../types';
 
 @Component({
   selector: 'signup',
@@ -12,6 +13,8 @@ import { BaseService } from '../../services';
 })
 
 export class SignupComponent {
+
+  public error: Error;
 
   constructor(public router: Router, private _config: Configuration, private _service: BaseService) {
     _config.setBgClass("simple");
@@ -25,7 +28,7 @@ export class SignupComponent {
         this.router.navigate(['/boards']);
       },
       error => {
-        console.log(error);
+        this.error = new Error(error.status, error._body);
       }
       );
   }
