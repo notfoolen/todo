@@ -39,7 +39,7 @@ export class BoardComponent implements OnInit {
         private _service: CardService,
         private _boardService: BoardService) {
 
-        _config.setBgClass("simple");
+        _config.setBgClass(_config.COLORS.LIGHT);
 
         dragulaService.dropModel.subscribe((value) => {
             if (value[0] == 'bag-desk') {
@@ -51,7 +51,7 @@ export class BoardComponent implements OnInit {
     }
 
     private reorderDesks(args) {
-        this._service.ReorderDesks(this.desks.map(function(item) { return item.id }))
+        this._service.ReorderDesks(this.desks.map(function (item) { return item.id }))
             .subscribe(
             data => { },
             error => console.log(error),
@@ -66,11 +66,11 @@ export class BoardComponent implements OnInit {
         let sourceDeskId = +source.getAttribute('id');
 
         let targetDesk = this.desks.find(item => item.id == targetDeskId);
-        let desks = [new CardReorderView(targetDeskId, targetDesk.cards.map(function(a) { return a.id; }))];
+        let desks = [new CardReorderView(targetDeskId, targetDesk.cards.map(function (a) { return a.id; }))];
 
         if (targetDeskId != sourceDeskId) {
             let sourceDesk = this.desks.find(item => item.id == sourceDeskId);
-            desks.push(new CardReorderView(sourceDeskId, sourceDesk.cards.map(function(a) { return a.id; })));
+            desks.push(new CardReorderView(sourceDeskId, sourceDesk.cards.map(function (a) { return a.id; })));
         }
 
         this._service.ReorderCards(desks)
@@ -87,7 +87,10 @@ export class BoardComponent implements OnInit {
 
             this._boardService.Get(this.boardCode)
                 .subscribe(
-                data => this.board = data,
+                data => {
+                    this.board = data;
+                    this._config.setBgColor(this.board.color);
+                },
                 error => console.log(error),
                 () => console.log('Get board complete')
                 );
@@ -100,6 +103,10 @@ export class BoardComponent implements OnInit {
                 );
 
         });
+    }
+
+    ngOnDestroy() {
+        this._config.setBgColor("");
     }
 
     public closeAddDeskArea(): void {

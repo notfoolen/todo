@@ -1,4 +1,6 @@
 .masthead {
+    -webkit-transition: background 85ms ease-in-out;
+    transition: background 85ms ease-in-out;
     position: absolute;
     top: 0;
     left: 0;

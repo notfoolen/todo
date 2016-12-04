@@ -28,7 +28,6 @@ export class SigninComponent {
       },
       error => {
         this.error = new Error(error.status, error._body);
-        console.log(error);
       }
       );
   }

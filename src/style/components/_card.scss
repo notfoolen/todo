@@ -18,10 +18,6 @@ a.card-warning {
     @include card-variant($brand-danger, $brand-danger);
 }
 
-.board-sm {
-    min-height: 105px;
-}
-
 .board-new {
     width: 100%;
     background: rgba($color-light, .3);

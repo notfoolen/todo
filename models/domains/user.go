@@ -4,7 +4,7 @@ import "time"
 
 // User user profile
 type User struct {
-	ID    int       `json:"id"`
+	ID    int       `orm:"column(id)"json:"id"`
 	Dt    time.Time `orm:"auto_now_add;type(datetime)"json:"dt"`
 	Login string    `orm:"size(256)"json:"login"`
 	Email string    `orm:"size(256)"json:"email"`

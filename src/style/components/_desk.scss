@@ -1,6 +1,8 @@
 .desk-container {
+    .card {
+        background-color: $card-cap-bg;
+    }
     .desk {
-        background: $card-cap-bg;
         .card-header {
             border-bottom: 0;
             background: inherit;
@@ -30,19 +32,17 @@
     }
     .desk-new {
         cursor: pointer;
-        -webkit-transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
-        transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
+        -webkit-transition: background-color 85ms ease-in-out;
+        transition: background-color 85ms ease-in-out;
         color: #fff;
-        .card-block {
-            &.nactive {
-                background: rgba(0, 0, 0, .12);
-                color: inherit;
-                &:hover,
-                &:focus,
-                &:active {
-                    background: rgba(0, 0, 0, .2);
-                    text-decoration: none;
-                }
+        &.nactive {
+            background: rgba(0, 0, 0, .12);
+            color: inherit;
+            &:hover,
+            &:focus,
+            &:active {
+                background: rgba(0, 0, 0, .2);
+                text-decoration: none;
             }
         }
         .desk-new-title {

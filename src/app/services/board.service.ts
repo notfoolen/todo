@@ -17,7 +17,7 @@ export class BoardService {
         return this._baseService.Get("boards/" + code)
             .map((resp: Response) => {
                 let data = resp.json();
-                return new Board(data.title, data.description, data.dt, data.code);
+                return new Board(data);
             });
     }
 
@@ -27,7 +27,7 @@ export class BoardService {
                 let data = resp.json();
                 let res: Board[] = [];
                 for (var item of data) {
-                    res.push(item);
+                    res.push(new Board(item));
                 }
                 return res;
             });
@@ -41,7 +41,7 @@ export class BoardService {
         return this._baseService.Post("boards", params)
             .map((resp: Response) => {
                 let data = resp.json();
-                return new Board(data.title, data.description, data.dt, data.code);
+                return new Board(data);
             });
     }
 

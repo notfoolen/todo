@@ -10,19 +10,28 @@ import { Configuration } from "./app.config"
 
 export class AppComponent {
     public bgClass = "";
+    public bgColor = "";
 
     private _bgSubscription: Subscription;
+    private _bgColorSubscription: Subscription;
 
     constructor(private _config: Configuration) {
         this.bgClass = _config.bgClass;
         this._bgSubscription = _config.bgClassChange.subscribe((value) => {
             this.bgClass = value;
         });
+        this.bgColor = _config.bgColor;
+        this._bgColorSubscription = _config.bgColorChange.subscribe((value) => {
+            this.bgColor = value;
+        });
     }
 
     ngOnDestroy() {
         if (this._bgSubscription) {
             this._bgSubscription.unsubscribe();
+        }
+        if (this._bgColorSubscription) {
+            this._bgColorSubscription.unsubscribe();
         }
     }
 }
