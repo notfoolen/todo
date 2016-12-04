@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/gob"
+	"io/ioutil"
 
 	"github.com/notfoolen/todo/models/domains"
 
@@ -14,7 +15,13 @@ import (
 )
 
 func main() {
-	beego.SetStaticPath("/", "static")
+	beego.DelStaticPath("/static")
+	// beego.SetStaticPath("/", "static")
+
+	files, _ := ioutil.ReadDir("./static")
+	for _, f := range files {
+		beego.SetStaticPath("/"+f.Name(), "static/"+f.Name())
+	}
 
 	gob.Register(domains.User{})
 

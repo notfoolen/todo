@@ -5,7 +5,8 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 @Injectable()
 export class Configuration {
-    public Server: string = "http://127.0.0.1:9090/";
+    // public Server: string = "http://127.0.0.1:9090/";
+    public Server: string = "/";
 
     public CookieSID: string = "gsid";
     public CookieXSRF: string = "_xsrf";

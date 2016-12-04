@@ -1,0 +1,2 @@
+cd ..
+env GOARCH=amd64 GOOS=linux go build -o todo.elf -v main.go
