@@ -13,6 +13,7 @@ export class Board {
     constructor(data?: any) {
         if (data) {
             this.title = data.title || null;
+            this.description= data.description || null;
             this.dt = data.dt || null;
             this.code = data.code || null;
             if (data.color) {
