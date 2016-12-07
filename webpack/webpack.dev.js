@@ -13,6 +13,9 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 /**
  * Webpack Constants
  */
@@ -41,7 +44,7 @@ module.exports = function (options) {
      * See: http://webpack.github.io/docs/configuration.html#devtool
      * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
      */
-    devtool: 'cheap-module-source-map',
+    devtool: 'source-map',
 
     /**
      * Options affecting the output of the compilation.
@@ -86,6 +89,8 @@ module.exports = function (options) {
 
     plugins: [
 
+      new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
+
       /**
        * Plugin: DefinePlugin
        * Description: Define free variables.
@@ -122,6 +127,20 @@ module.exports = function (options) {
       new LoaderOptionsPlugin({
         debug: true,
         options: {
+          context: helpers.root('src'),
+          
+          output: {
+            path: helpers.root('static')
+          },
+
+          sassLoader: {
+            includePaths: [
+              'app', '.'
+            ],
+            sourceMap: true,
+            sourceMapContents: true,
+            sourceMapEmbed: true,
+          },
 
           /**
            * Static analysis linter for TypeScript advanced options configuration

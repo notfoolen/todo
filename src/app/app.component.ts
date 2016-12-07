@@ -1,4 +1,6 @@
-﻿import { Component, ViewEncapsulation } from '@angular/core';
+﻿// import '../style/init.scss';
+
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Configuration } from "./app.config"
 

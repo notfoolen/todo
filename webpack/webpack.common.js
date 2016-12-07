@@ -15,6 +15,7 @@ const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const HtmlElementsPlugin = require('./html-elements-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
@@ -105,8 +106,30 @@ module.exports = function (options) {
                 {
                     test: /\.scss$/,
                     // exclude: /node_modules/,
-                    loader: "style-loader!css-loader!sass-loader"
+                    // loader: "style-loader!css-loader!sass-loader"
+                    
+                    // fix webpack bug
+                    // loader: DEBUG ? 'style!' + styles : ExtractTextPlugin.extract(styles)
+                    loader: isProd ? ExtractTextPlugin.extract({
+                        fallbackLoader: 'style-loader',
+                        loader: "css-loader!sass-loader?sourceMap"
+                    }) : "style-loader!css-loader!sass-loader",
+                    /*
+                    loader: ExtractTextPlugin.extract({
+                        fallbackLoader: 'style-loader',
+                        loader: 'css-loader!sass-loader?sourceMap'
+                    })
+                    */
                 },
+                /*
+                {
+                    test: /init\.scss$/,
+                    loader: ExtractTextPlugin.extract({
+                        fallbackLoader: 'style-loader',
+                        loader: 'css-loader!sass-loader?sourceMap'
+                    })
+                },
+                */
 
                 /* Raw loader support for *.html
                  * Returns file content as string
@@ -125,6 +148,7 @@ module.exports = function (options) {
                     test: /\.(jpg|png|gif)$/,
                     loader: 'file'
                 },
+
                 { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=image/svg+xml' },
                 { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff" },
                 { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff" },
@@ -141,6 +165,8 @@ module.exports = function (options) {
          * See: http://webpack.github.io/docs/configuration.html#plugins
          */
         plugins: [
+            // new ExtractTextPlugin({ filename: 'init.css', allChunks: true }),
+
             new AssetsPlugin({
                 path: helpers.root('static'),
                 filename: 'webpack-assets.json',
@@ -154,6 +180,7 @@ module.exports = function (options) {
              * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
              */
             new ForkCheckerPlugin(),
+
             /*
              * Plugin: CommonsChunkPlugin
              * Description: Shares common code between the pages.
