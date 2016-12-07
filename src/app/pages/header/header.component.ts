@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { Subscription } from 'rxjs/Subscription';
+
 import { BaseService } from '../../services';
 import { User } from '../../types';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-header',
