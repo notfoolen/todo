@@ -31,7 +31,15 @@ import {
 import {
   DeskComponent
 } from './components';
-import { BaseService, BoardService } from './services';
+
+import {
+  ImageLoader,
+  Preloader,
+  Spinner,
+  BaseService,
+  BoardService
+} from './services';
+
 import { AuthGuard } from './common';
 import { Cookie } from './helpers';
 import { Configuration } from './app.config';
@@ -45,6 +53,9 @@ const APP_PROVIDERS = [
   AppState,
   Cookie,
   Configuration,
+  ImageLoader,
+  Preloader,
+  Spinner,
   BaseService,
   BoardService,
   AuthGuard,

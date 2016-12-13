@@ -20,8 +20,7 @@ export class Cookie {
   }
 
   public delete(name) {
-    this.set(name, "123412341234", -1);
-    this.set("_xsrf", "123412341234", 1);
+    this.set(name, "", -1);
   }
 
 }

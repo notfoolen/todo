@@ -16,18 +16,22 @@
         <%= webpackConfig.htmlElements.headTags %>
     <% } %>
 
-    <!-- base url -->
+                <!-- base url -->
     <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
 </head>
 
 <body>
-    <my-app>Loading...</my-app>
+    <app></app>
+    <div id="preloader">
+        <div class="loading-page">
+            <h2 class="loader">Loading...</h2>
+        </div>
+    </div>
 
     <% if (htmlWebpackPlugin.options.metadata.isDevServer && htmlWebpackPlugin.options.metadata.HMR !== true) { %>
         <!-- Webpack Dev Server reload -->
         <script src="/webpack-dev-server.js"></script>
-        <% } %>
+    <% } %>
 
 </body>
-
 </html>

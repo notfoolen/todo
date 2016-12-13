@@ -23,7 +23,7 @@ export class BoardComponent implements OnInit {
     closeResult: string;
 
     private boardCode: string;
-    public desks: CardDesk[];
+    public desks: CardDesk[] = [];
     public board: Board;
 
     public addDeskShown = false;
@@ -49,6 +49,38 @@ export class BoardComponent implements OnInit {
             }
         });
     }
+
+    ngOnInit() {
+        this.activateRoute.params.subscribe(params => {
+            this.boardCode = params['code'];
+
+            this._boardService.Get(this.boardCode)
+                .subscribe(
+                data => {
+                    this.board = data;
+                    this._config.setBgColor(this.board.color);
+                },
+                error => console.log(error),
+                () => console.log('Get board complete')
+                );
+
+            this._service.GetDeskList(this.boardCode)
+                .subscribe(
+                data => {
+                    this.desks = data;
+                    console.log(this.desks);
+                }, 
+                error => console.log(error),
+                () => console.log('Get desk list complete')
+                );
+
+        });
+    }
+
+    ngOnDestroy() {
+        this._config.setBgColor("");
+    }
+
 
     private reorderDesks(args) {
         this._service.ReorderDesks(this.desks.map(function (item) { return item.id }))
@@ -79,34 +111,6 @@ export class BoardComponent implements OnInit {
             error => console.log(error),
             () => console.log('Reorder cards complete')
             );
-    }
-
-    ngOnInit() {
-        this.activateRoute.params.subscribe(params => {
-            this.boardCode = params['code'];
-
-            this._boardService.Get(this.boardCode)
-                .subscribe(
-                data => {
-                    this.board = data;
-                    this._config.setBgColor(this.board.color);
-                },
-                error => console.log(error),
-                () => console.log('Get board complete')
-                );
-
-            this._service.GetDeskList(this.boardCode)
-                .subscribe(
-                data => this.desks = data,
-                error => console.log(error),
-                () => console.log('Get desk list complete')
-                );
-
-        });
-    }
-
-    ngOnDestroy() {
-        this._config.setBgColor("");
     }
 
     public closeAddDeskArea(): void {

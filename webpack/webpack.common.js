@@ -58,7 +58,7 @@ module.exports = function (options) {
             'polyfills': './src/polyfills.ts',
             'vendor': './src/vendor.ts',
             'main': './src/main.ts',
-            'style': './src/style/app.scss'
+            // 'style': './src/style/app.scss'
         },
 
         /*
@@ -107,7 +107,7 @@ module.exports = function (options) {
                     test: /\.scss$/,
                     // exclude: /node_modules/,
                     // loader: "style-loader!css-loader!sass-loader"
-                    
+
                     // fix webpack bug
                     // loader: DEBUG ? 'style!' + styles : ExtractTextPlugin.extract(styles)
                     loader: isProd ? ExtractTextPlugin.extract({
@@ -121,7 +121,7 @@ module.exports = function (options) {
                     })
                     */
                 },
-                /*
+
                 {
                     test: /init\.scss$/,
                     loader: ExtractTextPlugin.extract({
@@ -129,7 +129,6 @@ module.exports = function (options) {
                         loader: 'css-loader!sass-loader?sourceMap'
                     })
                 },
-                */
 
                 /* Raw loader support for *.html
                  * Returns file content as string
@@ -165,8 +164,6 @@ module.exports = function (options) {
          * See: http://webpack.github.io/docs/configuration.html#plugins
          */
         plugins: [
-            // new ExtractTextPlugin({ filename: 'init.css', allChunks: true }),
-
             new AssetsPlugin({
                 path: helpers.root('static'),
                 filename: 'webpack-assets.json',
