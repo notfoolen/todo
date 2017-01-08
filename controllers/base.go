@@ -46,6 +46,8 @@ func (c *BaseController) Init(ctx *context.Context, controllerName, actionName s
 
 	// c.Layout = "layout/index.html"
 	c.disableLayout = true
+
+	c.postInit()
 }
 
 // postInit call after init

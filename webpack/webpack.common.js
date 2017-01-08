@@ -122,6 +122,8 @@ module.exports = function (options) {
                     */
                 },
 
+/*
+for dev preloader
                 {
                     test: /init\.scss$/,
                     loader: ExtractTextPlugin.extract({
@@ -129,7 +131,7 @@ module.exports = function (options) {
                         loader: 'css-loader!sass-loader?sourceMap'
                     })
                 },
-
+*/
                 /* Raw loader support for *.html
                  * Returns file content as string
                  *

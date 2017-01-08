@@ -22,6 +22,7 @@ export class AppComponent {
     constructor(private _config: Configuration, 
               private _imageLoader: ImageLoader,
               private _spinner: Spinner) {
+
         this.bgClass = _config.bgClass;
         this._bgSubscription = _config.bgClassChange.subscribe((value) => {
             this.bgClass = value;
@@ -30,13 +31,12 @@ export class AppComponent {
         this._bgColorSubscription = _config.bgColorChange.subscribe((value) => {
             this.bgColor = value;
         });
-
-        console.log('3124567');
+        
     }
 
     public ngAfterViewInit(): void {
         Preloader.load().then((values) => {
-            this._spinner.hide();
+            this._spinner.hide(0, 200);
         });
     }
 

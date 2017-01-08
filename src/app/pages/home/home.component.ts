@@ -31,17 +31,6 @@ export class HomeComponent {
             this.profile = value;
             this.baseLink = value ? '/boards' : '/signin';
         });
-
-        let banners = [
-            '/assets/img/home-todo-1.jpg',
-            '/assets/img/home-todo-2.jpg',
-            '/assets/img/home-todo-3.jpg',
-            '/assets/img/home-todo-4.jpg',
-            '/assets/img/home-todo-5.jpg',
-        ];
-
-        let rnd = Math.floor(Math.random() * 5);  
-        this.banner = banners[rnd];
     }
 
 }

@@ -1,6 +1,9 @@
 .masthead {
-    -webkit-transition: background 85ms ease-in-out;
-    transition: background 85ms ease-in-out;
+    -webkit-transition: background-color 85ms linear;
+    -moz-transition: background-color 85ms linear;
+    -o-transition: background-color 85ms linear;
+    -ms-transition: background-color 85ms linear;
+    transition: background-color 85ms linear;
     position: absolute;
     top: 0;
     left: 0;

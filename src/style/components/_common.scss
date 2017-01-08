@@ -9,12 +9,14 @@ body {
     width: 100%;
     padding-top: $header-spacer;
     padding-bottom: $footer-spacer;
-    -webkit-transition: background 85ms ease-in-out;
-    transition: background 85ms ease-in-out;
+    -webkit-transition: background-color 85ms linear;
+    -moz-transition: background-color 85ms linear;
+    -o-transition: background-color 85ms linear;
+    -ms-transition: background-color 85ms linear;
+    transition: background-color 85ms linear;
     &.simple {
         .masthead {
             background-color: $brand-primary;
-            background: linear-gradient(135deg, $brand-primary, lighten($brand-primary, 5));
         }
         .footer {
             background-color: #f9f9f9;

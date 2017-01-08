@@ -30,6 +30,8 @@
     width: 100%;
     height: 100%;
     z-index: 99999;
+    transition: all .2s linear;
+
     .loading-page {
         margin: 0;
         padding: 0;
