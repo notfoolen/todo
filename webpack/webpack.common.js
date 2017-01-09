@@ -178,7 +178,7 @@ for dev preloader
              *
              * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
              */
-            new ForkCheckerPlugin(),
+            // new ForkCheckerPlugin(),
 
             /*
              * Plugin: CommonsChunkPlugin
