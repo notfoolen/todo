@@ -1,6 +1,6 @@
 <div class="container container-fxy container-top pb-3">
-    <div class="row m-0 mb-1 board-card-list-header">
-        <div class="col-xs-12" *ngIf="board">
+    <div class="row m-0 mb-3 board-card-list-header">
+        <div class="col-12" *ngIf="board">
             <a href="javascript:void(0);" class="btn btn-sm btn-secondary">{{board.title}}</a>
             <a href="javascript:void(0);" class="btn btn-sm btn-secondary"><i class="fa fa-fw fa-star"></i></a>
             <a href="javascript:void(0);" class="btn btn-sm btn-secondary"><i class="fa fa-fw fa-lock"></i> private</a>
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="row m-0 board-card-list flex-nw px-1" [dragula]='"bag-desk"' [dragulaModel]='desks'>
+    <div class="row m-0 board-card-list flex-nw px-3" [dragula]='"bag-desk"' [dragulaModel]='desks'>
         <desk-component class="desk-container" (deleteDesk)="deleteDesk($event)" [desk]="desk" *ngFor="let desk of desks"></desk-component>
 
         <div class="desk-container">
