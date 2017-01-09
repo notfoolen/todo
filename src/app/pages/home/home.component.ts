@@ -21,16 +21,23 @@ export class HomeComponent {
     public baseLink = "";
 
     constructor(private router: Router,
-    private http: Http,
-    private _config: Configuration,
-    private _service: BaseService) {
+        private http: Http,
+        private _config: Configuration,
+        private _service: BaseService) {
         _config.setBgClass(_config.COLORS.BLUE);
-        
+
         this.profile = _service.profile;
+        this.baseLink = this.profile ? '/boards' : '/signin';
         this._subscription = _service.profileChange.subscribe((value) => {
             this.profile = value;
             this.baseLink = value ? '/boards' : '/signin';
         });
+    }
+
+    ngOnDestroy() {
+        if (this._subscription) {
+            this._subscription.unsubscribe();
+        }
     }
 
 }
