@@ -45,7 +45,7 @@ import { Cookie } from './helpers';
 import { Configuration } from './app.config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
-import { ClickOutsideModule } from 'ng2-click-outside';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 // Application wide providers
 const APP_PROVIDERS = [
