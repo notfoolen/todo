@@ -34,20 +34,12 @@ export class BoardComponent implements OnInit {
         private _router: Router,
         private activateRoute: ActivatedRoute,
         private modalService: NgbModal,
-        private dragulaService: DragulaService,
+        private _dragulaService: DragulaService,
         private _config: Configuration,
         private _service: CardService,
         private _boardService: BoardService) {
 
         _config.setBgClass(_config.COLORS.LIGHT);
-
-        dragulaService.dropModel.subscribe((value) => {
-            if (value[0] == 'bag-desk') {
-                this.reorderDesks(value);
-            } else if (value[0] == 'bag-card') {
-                this.reorderCards(value);
-            }
-        });
     }
 
     ngOnInit() {
@@ -68,8 +60,15 @@ export class BoardComponent implements OnInit {
                 .subscribe(
                 data => {
                     this.desks = data;
+                    this._dragulaService.dropModel.subscribe((value) => {
+                        if (value[0] == 'bag-desk') {
+                            this.reorderDesks(value);
+                        } else if (value[0] == 'bag-card') {
+                            this.reorderCards(value);
+                        }
+                    });
                     console.log(this.desks);
-                }, 
+                },
                 error => console.log(error),
                 () => console.log('Get desk list complete')
                 );
