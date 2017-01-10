@@ -46,7 +46,6 @@ module.exports = function(env) {
          */
         output: {
 
-
             publicPath: '/static/',
 
             /**

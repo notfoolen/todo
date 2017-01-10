@@ -5,10 +5,12 @@ body {
 }
 
 .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     height: 100%;
     width: 100%;
     padding-top: $header-spacer;
-    padding-bottom: $footer-spacer;
     -webkit-transition: background-color 85ms linear;
     -moz-transition: background-color 85ms linear;
     -o-transition: background-color 85ms linear;
@@ -35,6 +37,10 @@ body {
         background-color: $brand-primary;
         color: $color-light;
     }
+}
+
+.app-content {
+    flex: 1;
 }
 
 .btn {

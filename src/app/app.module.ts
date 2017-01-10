@@ -32,6 +32,11 @@ import {
   DeskComponent
 } from './components';
 
+
+import {
+  AppPicturePipe
+} from './pipes';
+
 import {
   ImageLoader,
   Preloader,
@@ -87,8 +92,8 @@ type StoreType = {
     SigninComponent,
     SignupComponent,
     PageNotFoundComponent,
-
-    DeskComponent
+    DeskComponent,
+    AppPicturePipe,
   ],
   providers: [
     ENV_PROVIDERS,

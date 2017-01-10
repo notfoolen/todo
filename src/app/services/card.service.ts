@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { Configuration } from '../app.constants';
+import { Configuration } from '../app.config';
 import { Card, CardDesk, CardReorderView } from '../types';
 import { BaseService } from './base.service';
 

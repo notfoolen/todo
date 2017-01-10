@@ -122,16 +122,16 @@ module.exports = function (options) {
                     */
                 },
 
-/*
-for dev preloader
-                {
-                    test: /init\.scss$/,
-                    loader: ExtractTextPlugin.extract({
-                        fallbackLoader: 'style-loader',
-                        loader: 'css-loader!sass-loader?sourceMap'
-                    })
-                },
-*/
+                /*
+                for dev preloader
+                                {
+                                    test: /init\.scss$/,
+                                    loader: ExtractTextPlugin.extract({
+                                        fallbackLoader: 'style-loader',
+                                        loader: 'css-loader!sass-loader?sourceMap'
+                                    })
+                                },
+                */
                 /* Raw loader support for *.html
                  * Returns file content as string
                  *
@@ -145,10 +145,8 @@ for dev preloader
 
                 /* File loader for supporting images, for example, in CSS files.
                  */
-                {
-                    test: /\.(jpg|png|gif)$/,
-                    loader: 'file'
-                },
+                { test: /\.jpg$/, loader: "file-loader" },
+                { test: /\.png$/, loader: "url-loader?mimetype=image/png" },
 
                 { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=image/svg+xml' },
                 { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff" },
